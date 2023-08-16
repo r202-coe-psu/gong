@@ -9,7 +9,7 @@ RUN apt install -y python3 python3-dev python3-pip python3-venv npm git locales
 # ENV LC_ALL th_TH.UTF-8
 
 
-ENV KONG_SETTINGS=/app/kong-production.cfg
+ENV KONG_SETTINGS=/app/gong-production.cfg
 
 RUN python3 -m venv /venv
 ENV PYTHON=/venv/bin/python3
@@ -17,12 +17,12 @@ ENV PYTHON=/venv/bin/python3
 RUN $PYTHON -m pip install poetry
 
 WORKDIR /app
-COPY kong/cmd /app/kong/cmd
+COPY gong/cmd /app/gong/cmd
 COPY poetry.lock pyproject.toml README.md /app/
 RUN $PYTHON -m poetry config virtualenvs.create false && $PYTHON -m poetry install --no-interaction --only main
 
-COPY kong/web/static/package.json kong/web/static/package-lock.json kong/web/static/
-RUN npm install --prefix kong/web/static
+COPY gong/web/static/package.json gong/web/static/package-lock.json gong/web/static/
+RUN npm install --prefix gong/web/static
 
 COPY . /app
 
@@ -33,7 +33,7 @@ COPY . /app
 # RUN poetry config virtualenvs.create false && poetry install --no-interaction
 
 # For brython
-# RUN cd /app/kong/web/static/brython; \
+# RUN cd /app/gong/web/static/brython; \
 #     for i in $(ls -d */); \
 #     do \
 #     cd $i; \

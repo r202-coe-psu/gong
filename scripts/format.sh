@@ -1,3 +1,3 @@
 #!/bin/sh
 
-black kong
+black gong

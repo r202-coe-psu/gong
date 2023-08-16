@@ -11,9 +11,9 @@ app = Flask(__name__)
 
 
 def create_app():
-    app.config.from_object("kong.default_settings")
+    app.config.from_object("gong.default_settings")
     app.config.from_envvar(
-        "KONG_SETTINGS", silent=True
+        "GONG_SETTINGS", silent=True
     )
 
     models.init_db(app)

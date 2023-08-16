@@ -1,2 +1,2 @@
-MONGODB_DB = "kongdb"
+MONGODB_DB = "gongdb"
 SECRET_KEY = "changethis"

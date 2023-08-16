@@ -2,9 +2,9 @@ version: '3'
 services:
     mongodb:
         image: mongo
-        container_name: kong-mongodb
+        container_name: gong-mongodb
         volumes:
-            - ../deployment/kong/mongodb/data/db:/data/db
+            - ../deployment/gong/mongodb/data/db:/data/db
             - /etc/localtime:/etc/localtime:ro
         restart: always
         networks:
@@ -15,7 +15,7 @@ services:
                 max-file: "3"
     # redis:
     #     image: redis
-    #     container_name: kong-redis
+    #     container_name: gong-redis
     #     restart: always
     #     networks:
     #         - default
@@ -25,8 +25,8 @@ services:
     #             max-file: "3"
     web:
         build: .
-        image: kong-image
-        container_name: kong-web
+        image: gong-image
+        container_name: gong-web
         volumes:
             - ../deployment:/deployment
             - /etc/localtime:/etc/localtime:ro
@@ -38,17 +38,17 @@ services:
             - default
         restart: always
         environment:
-            KONG_SETTINGS: /app/kong-production.cfg
+            KONG_SETTINGS: /app/gong-production.cfg
         command:
-          /venv/bin/gunicorn -w 2 --bind 0.0.0.0:9000 "kong.web:create_app()"
+          /venv/bin/gunicorn -w 2 --bind 0.0.0.0:9000 "gong.web:create_app()"
         logging:
             options:
                 max-size: "10m"
                 max-file: "3"
     # worker:
     #     build: .
-    #     image: kong-image
-    #     container_name: kong-worker
+    #     image: gong-image
+    #     container_name: gong-worker
     #     volumes:
     #         - ../deployment:/deployment
     #         - /etc/localtime:/etc/localtime:ro
@@ -60,9 +60,9 @@ services:
     #         - redis
     #     restart: always
     #     environment:
-    #         KONG_SETTINGS: /app/kong-production.cfg
+    #         KONG_SETTINGS: /app/gong-production.cfg
     #     command:
-    #         /venv/bin/kong-worker
+    #         /venv/bin/gong-worker
     #     logging:
     #         options:
     #             max-size: "10m"
