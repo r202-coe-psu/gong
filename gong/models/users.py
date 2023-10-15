@@ -17,4 +17,19 @@ class User(me.Document, UserMixin):
     updated_date = me.DateTimeField(
         required=True, default=datetime.datetime.now, auto_now=True
     )
+
+    picture_url = me.StringField()
+    resources = me.DictField()
+
     meta = {"collection": "users"}
+
+    def has_roles(self, roles):
+        for role in roles:
+            if role in self.roles:
+                return True
+        return False
+
+    def get_image(self):
+        if "google" in self.resources:
+            return self.resources["google"].get("picture", None)
+        return None

@@ -1,4 +1,4 @@
-from kong import web
+from gong import web
 
 
 def main():
