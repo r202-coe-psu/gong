@@ -5,6 +5,8 @@ from flask_login import UserMixin
 
 
 class User(me.Document, UserMixin):
+    meta = {"collection": "users"}
+
     username = me.StringField(min_length=5, max_length=64)
     email = me.StringField(required=True, unique=True)
     password = me.StringField(required=True, default="")
@@ -20,8 +22,6 @@ class User(me.Document, UserMixin):
 
     picture_url = me.StringField()
     resources = me.DictField()
-
-    meta = {"collection": "users"}
 
     def has_roles(self, roles):
         for role in roles:
