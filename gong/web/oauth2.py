@@ -9,14 +9,14 @@ import datetime
 
 
 def fetch_token(name):
-    token = models.OAuth2Token.objects(
+    token = models.oauth2.OAuth2Token.objects(
         name=name, user=current_user._get_current_object()
     ).first()
     return token.to_dict()
 
 
 def update_token(name, token):
-    item = models.OAuth2Token(
+    item = models.oauth2.OAuth2Token(
         name=name, user=current_user._get_current_object()
     ).first()
     item.token_type = token.get("token_type", "Bearer")
@@ -32,7 +32,7 @@ oauth2_client = OAuth()
 
 
 def create_user_google(user_info):
-    user = models.User(
+    user = models.users.User(
         username=user_info.get("email"),
         picture_url=user_info.get("picture"),
         email=user_info.get("email"),
@@ -45,7 +45,7 @@ def create_user_google(user_info):
 
 
 def create_user_engpsu(user_info):
-    user = models.User(
+    user = models.users.User(
         username=userinfo.get("username"),
         email=userinfo.get("email"),
         first_name=userinfo.get("first_name").title(),
@@ -68,7 +68,7 @@ def create_user_engpsu(user_info):
 
 
 def create_user_psu(user_info):
-    user = models.User(
+    user = models.users.User(
         username=user_info.get("username"),
         email=user_info.get("email"),
         first_name=user_info.get("first_name").title(),
@@ -117,7 +117,7 @@ def create_user_line(user_info):
         if len(names) < 2:
             names.append("")
 
-    user = models.User(
+    user = models.users.User(
         username=user_info.get("email", name),
         subid=user_info.get("sub"),
         picture_url=user_info.get("picture"),
@@ -131,7 +131,7 @@ def create_user_line(user_info):
 
 
 def create_user_facebook(user_info):
-    user = models.User(
+    user = models.users.User(
         username=user_info.get("email"),
         picture_url=f"http://graph.facebook.com/{user_info.get('sub')}/picture?type=large",
         email=user_info.get("email"),
@@ -196,7 +196,7 @@ def handle_authorized_oauth2(remote, token):
 
     user = None
     if remote.name == "psu":
-        user = models.User.objects(username=user_info.get("username")).first()
+        user = models.users.User.objects(username=user_info.get("username")).first()
     elif "email" in user_info and user_info["email"]:
         user = models.User.objects(me.Q(email=user_info.get("email"))).first()
     elif "sub" in user_info:

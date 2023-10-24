@@ -44,7 +44,6 @@ def validate_email(form, field):
 
 
 def validate_username(form, field):
-
     if field.data.lower() in ROLES:
         raise validators.ValidationError(
             "This username: %s is not allowed" % field.data
@@ -65,7 +64,7 @@ def validate_username(form, field):
 
 
 BaseProfileForm = model_form(
-    models.User,
+    models.users.User,
     FlaskForm,
     exclude=[
         "created_date",

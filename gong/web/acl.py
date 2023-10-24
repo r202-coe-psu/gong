@@ -39,7 +39,7 @@ def roles_required(*roles):
 
 @login_manager.user_loader
 def load_user(user_id):
-    user = models.User.objects.with_id(user_id)
+    user = models.users.User.objects.with_id(user_id)
     return user
 
 

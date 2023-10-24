@@ -13,6 +13,7 @@ flask-wtf = "^1.1.1"
 markdown = "^3.5"
 flask-login = "^0.6.2"
 python-dotenv = "^1.0.0"
+pillow = "^10.1.0"
 
 
 [tool.poetry.dev-dependencies]
