@@ -1,7 +1,9 @@
 from flask_mongoengine import MongoEngine
-from .users import User
+
+from .users 
 from .oauth2 import OAuth2Token
 
+from . import gongs
 
 db = MongoEngine()
 
