@@ -19,19 +19,24 @@ BaseGongForm = model_form(
         "updater",
     ],
     field_args={
-        "title": {"label": "Title"},
-        "first_name": {"label": "First Name"},
-        "last_name": {"label": "Last Name"},
-        "title_th": {"label": "Thai Title"},
-        "first_name_th": {"label": "Thai First Name"},
-        "last_name_th": {"label": "Thai Last Name"},
+        "name": {"label": "Name"},
+        "name_cn": {"label": "Name CN"},
+        "other_name": {"label": "Other Name"},
+        "other_name_cn": {"label": "Other Name CN"},
+        "avatar": {"label": "Avatar"},
+        "place_of_birth": {"label": "Place of Birth"},
+        "clan": {"label": "Clan (แซ่)"},
+        "clan_cn": {"label": "Clan CN (แซ่)"},
+        "blessings": {"label": "Blessings"},
         "biography": {"label": "Biography"},
-        "email": {"label": "Email"},
+        "groups": {"label": "Groups"},
+        "links": {"label": "Links"},
     },
 )
 
 
 class GongForm(BaseGongForm):
-    pic = fields.FileField(
-        "Picture", validators=[FileAllowed(["png", "jpg"], "allow png and jpg")]
-    )
+    pass
+    # pic = fields.FileField(
+    #     "Picture", validators=[FileAllowed(["png", "jpg"], "allow png and jpg")]
+    # )

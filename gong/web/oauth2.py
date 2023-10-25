@@ -198,9 +198,9 @@ def handle_authorized_oauth2(remote, token):
     if remote.name == "psu":
         user = models.users.User.objects(username=user_info.get("username")).first()
     elif "email" in user_info and user_info["email"]:
-        user = models.User.objects(me.Q(email=user_info.get("email"))).first()
+        user = models.users.User.objects(me.Q(email=user_info.get("email"))).first()
     elif "sub" in user_info:
-        user = models.User.objects(subid=user_info.get("sub")).first()
+        user = models.users.User.objects(subid=user_info.get("sub")).first()
 
     print(remote.name, user, user_info.get("username"))
 
@@ -221,7 +221,7 @@ def handle_authorized_oauth2(remote, token):
     user.save()
 
     if token:
-        oauth2token = models.OAuth2Token(
+        oauth2token = models.oauth2.OAuth2Token(
             name=remote.name,
             user=user,
             access_token=token.get("access_token"),

@@ -40,6 +40,6 @@ def create_or_edit(gong_id):
         form = forms.gongs.Gong(obj=gong)
 
     if not form.validate_on_submit():
-        return render_template("/admin/gongs/create-or-edit.html")
+        return render_template("/admin/gongs/create-or-edit.html", form=form)
 
     return render_template("/admin/gongs/index.html")
