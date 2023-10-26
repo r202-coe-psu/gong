@@ -21,13 +21,12 @@ def index_user():
     return render_template("/dashboard/index-user.html")
 
 
+@module.route("/")
 @module.route("")
 @login_required
 def index():
+    print("Hello")
     user = current_user
-    dev = request.args.get("dev")
-    if dev == "test":
-        return index_student()
     if "admin" in user.roles:
         return redirect(url_for("dashboard.index_admin"))
 

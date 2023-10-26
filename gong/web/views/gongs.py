@@ -21,7 +21,7 @@ from .. import forms
 module = Blueprint("gongs", __name__, url_prefix="/gongs")
 
 
-@module.route("")
+@module.route("/")
 @login_required
 def index():
     return render_template("/gongs/index.html")

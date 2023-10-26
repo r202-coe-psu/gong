@@ -3,11 +3,11 @@ import datetime
 
 
 class Gong(me.Document):
-    name = me.StringField(min_length=5, max_length=256)
-    name_cn = me.StringField(min_length=5, max_length=256)
+    name = me.StringField(min_length=2, max_length=256)
+    name_cn = me.StringField(min_length=2, max_length=256)
 
-    other_name = me.ListField(me.StringField(min_length=5, max_length=256))
-    other_name_cn = me.ListField(me.StringField(min_length=5, max_length=256))
+    other_name = me.ListField(me.StringField(min_length=2, max_length=256))
+    other_name_cn = me.ListField(me.StringField(min_length=2, max_length=256))
 
     avatar = me.ReferenceField("Gong")
 
