@@ -1,6 +1,10 @@
 from flask_mongoengine import MongoEngine
-from .users import User
-from .oauth2 import OAuth2Token
+from . import users
+from . import oauth2
+from . import pictures
+from . import gongs
+from . import kimsins
+from . import shrines
 
 
 db = MongoEngine()

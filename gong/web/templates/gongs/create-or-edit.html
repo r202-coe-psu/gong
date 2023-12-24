@@ -1,0 +1,24 @@
+{% extends '/gongs/index.html' %}
+{% import '/base/html-renderer.html' as renderer %}
+
+
+{% block dashboard_title %}
+  {{ 'Create' if 'create' in request.path else 'Edit' }} Gong
+{% endblock %}
+
+{% block breadcrumbs %}
+  {{ super() }}
+  <div class="section active">Create Gong</div>
+{% endblock %}
+
+{% block content %}
+
+  <div class="ui segment">
+    <form method="POST" class="ui form">
+      {{ form.hidden_tag() }}
+      {{ renderer.render_field(form.name) }}
+      <button name="create" type="submit" class="ui button primary">{{ 'Create' if 'create' in request.path else 'Edit' }}</button>
+    </form>
+  </div>
+
+{% endblock %}

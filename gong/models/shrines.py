@@ -17,6 +17,8 @@ class Shrine(me.Document):
     presidents = me.ListField(me.ReferenceField("KimSin"))
     kimsins = me.ListField(me.ReferenceField("KimSin"))
 
+    location = me.PointField()
+
     creator = me.ReferenceField("User")
     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     updated_date = me.DateTimeField(

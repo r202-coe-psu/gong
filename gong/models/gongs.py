@@ -6,8 +6,8 @@ class Gong(me.Document):
     name = me.StringField(min_length=5, max_length=256)
     name_ch = me.StringField(min_length=5, max_length=256)
 
-    other_name = me.ListField(me.StringField(min_length=5, max_length=256))
-    other_name_ch = me.ListField(me.StringField(min_length=5, max_length=256))
+    alternative_name = me.ListField(me.StringField(min_length=5, max_length=256))
+    alternative_name_ch = me.ListField(me.StringField(min_length=5, max_length=256))
 
     avatar = me.ReferenceField("Gong")
 
@@ -23,7 +23,6 @@ class Gong(me.Document):
     blessings = me.ListField(me.StringField())
     picture = me.ReferenceField("Picture")
     biography = me.StringField()
-    blessings = me.ListField(me.StringField())
 
     groups = me.ListField(me.StringField())
 
