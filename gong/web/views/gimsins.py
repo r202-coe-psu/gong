@@ -6,11 +6,11 @@ from .. import forms
 
 import datetime
 
-module = Blueprint("kimsins", __name__, url_prefix="/kimsins")
+module = Blueprint("gimsins", __name__, url_prefix="/gimsins")
 
 
 @module.route("")
 @login_required
 def index():
-    kimsins = models.kimsins.Gong.objects()
-    return render_template("/kimsins/index.html", kimsins=kimsins)
+    gimsins = models.gimsins.GimSin.objects()
+    return render_template("/gimsins/index.html", gimsins=gimsins)
