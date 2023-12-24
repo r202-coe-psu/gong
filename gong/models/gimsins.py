@@ -2,8 +2,8 @@ import mongoengine as me
 import datetime
 
 
-class KimSin(me.Document):
-    meta = {"collection": "kimsins"}
+class GimSin(me.Document):
+    meta = {"collection": "gimsins"}
 
     name = me.StringField(min_length=5, max_length=256)
     name_ch = me.StringField(min_length=5, max_length=256)

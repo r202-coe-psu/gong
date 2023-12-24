@@ -6,15 +6,15 @@ authors = ["R202"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-flask = "^2.2.5"
-flask-login = "^0.6.2"
 flask-caching = "^2.0.2"
 authlib = "^1.2.0"
 flask-me = "^1.0.2"
 flask-wtf = "^1.1.1"
 markdown = "^3.5"
 pillow = "^10.0.1"
-
+flask-login = "^0.6.2"
+python-dotenv = "^1.0.0"
+flask = "^3.0.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.7b0"

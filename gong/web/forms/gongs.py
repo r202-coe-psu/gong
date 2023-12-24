@@ -8,6 +8,7 @@ from flask_mongoengine.wtf import model_form
 
 from .. import models
 
+
 BaseGongForm = model_form(
     models.gongs.Gong,
     FlaskForm,
@@ -31,11 +32,12 @@ BaseGongForm = model_form(
         "blessings": {"label": "Blessings"},
         "picture": {"label": "Picture"},
         "biography": {"label": "Biograpy"},
-        "groups": {"label": "Groups"},
-        "links": {"label": "Links"},
     },
 )
 
 
 class GongForm(BaseGongForm):
     pass
+    # pic = fields.FileField(
+    #     "Picture", validators=[FileAllowed(["png", "jpg"], "allow png and jpg")]
+    # )

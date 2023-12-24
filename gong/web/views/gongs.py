@@ -31,3 +31,7 @@ def create_or_edit(gong_id):
         return render_template("/gongs/create-or-edit.html", form=form)
 
     return redirect(url_for("gongs.index"))
+
+@module.route("/<gong_id>")
+def view(gong_id):
+    return render_template("/gongs/index.html")

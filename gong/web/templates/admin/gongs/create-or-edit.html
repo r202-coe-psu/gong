@@ -1,0 +1,32 @@
+{% extends '/base/default-dashboard.html' %}
+{% import '/base/html-renderer.html' as renderer %}
+
+{% block content %}
+  <div>
+    <h2>Create Gong</h2>
+    <form class="ui form" methon="POST">
+      {{ form.hidden_tag() }}
+      <div class="two fields">
+      {{ renderer.render_field(form.name) }}
+      {{ renderer.render_field(form.name_cn) }}
+      </div>
+      <div class="two fields">
+      {{ renderer.render_field(form.other_name) }}
+      {{ renderer.render_field(form.other_name_cn) }}
+      </div>
+
+      <div class="two fields">
+      {{ renderer.render_field(form.clan) }}
+      {{ renderer.render_field(form.clan_cn) }}
+      </div>
+
+      {{ renderer.render_field(form.avatar) }}
+      {{ renderer.render_field(form.place_of_birth) }}
+      {{ renderer.render_field(form.blessings) }}
+      {{ renderer.render_field(form.biography) }}
+      {{ renderer.render_field(form.groups) }}
+      {{ renderer.render_field(form.links) }}
+      <button type="submit" class="ui primary button">Submit</button>
+    </form>
+  </div>
+{% endblock %}
