@@ -4,10 +4,10 @@ import datetime
 
 class Gong(me.Document):
     name = me.StringField(min_length=2, max_length=256)
-    name_cn = me.StringField(min_length=2, max_length=256)
+    name_zh = me.StringField(min_length=2, max_length=256)
 
     alternative_name = me.ListField(me.StringField(min_length=5, max_length=256))
-    alternative_name_ch = me.ListField(me.StringField(min_length=5, max_length=256))
+    alternative_name_zh = me.ListField(me.StringField(min_length=5, max_length=256))
     avatar = me.ReferenceField("Gong")
 
     day_of_birth = me.DateTimeField()

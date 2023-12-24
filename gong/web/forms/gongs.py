@@ -19,9 +19,9 @@ BaseGongForm = model_form(
     ],
     field_args={
         "name": {"label": "Name"},
-        "name_ch": {"label": "Chinese Name"},
+        "name_zh": {"label": "Chinese Name"},
         "alternative_name": {"label": "Chinese Name"},
-        "alternative_name_ch": {"label": "Chinese Name"},
+        "alternative_name_zh": {"label": "Chinese Name"},
         "avatar": {"label": "Gong"},
         "day_of_birth": {"label": "Date of Birth"},
         "day_of_death": {"label": "Date of Death"},

@@ -6,16 +6,15 @@ class Shrine(me.Document):
     meta = {"collection": "shrines"}
 
     name = me.StringField(min_length=5, max_length=256)
-    name_ch = me.StringField(min_length=5, max_length=256)
+    name_zh = me.StringField(min_length=5, max_length=256)
 
-    day_of_open = me.DateTimeField()
+    opened_date = me.DateTimeField()
     biography = me.StringField()
     pictures = me.ListField(me.ReferenceField("Picture"))
 
     links = me.ListField(me.StringField())
 
-    presidents = me.ListField(me.ReferenceField("KimSin"))
-    kimsins = me.ListField(me.ReferenceField("KimSin"))
+    presidents = me.ListField(me.ReferenceField("GimSin"))
 
     location = me.PointField()
 

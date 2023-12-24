@@ -21,16 +21,17 @@ def index():
 @login_required
 def create_or_edit(gong_id):
     gong = None
+
+    form = forms.gongs.GongForm()
     if gong_id:
         gong = models.gongs.Gong.objects.get(id=gong_id)
-    form = forms.gongs.GongForm()
-    if gong:
         form = forms.gongs.GongForm(obj=gong)
 
     if not form.validate_on_submit():
         return render_template("/gongs/create-or-edit.html", form=form)
 
     return redirect(url_for("gongs.index"))
+
 
 @module.route("/<gong_id>")
 def view(gong_id):
