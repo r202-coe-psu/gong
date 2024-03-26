@@ -1,5 +1,5 @@
 from wtforms import validators
-from wtforms import fields
+from wtforms import fields, widgets
 from .fields import TextListField
 
 from flask_wtf import FlaskForm
@@ -37,7 +37,9 @@ BaseGongForm = model_form(
 
 
 class GongForm(BaseGongForm):
-    pass
+    blessings = TextListField("Blessings", widget=widgets.TextInput())
+    tags = TextListField("Groups", widget=widgets.TextInput())
+    links = TextListField("Links", widget=widgets.TextInput())
     # pic = fields.FileField(
     #     "Picture", validators=[FileAllowed(["png", "jpg"], "allow png and jpg")]
     # )

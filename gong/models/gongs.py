@@ -17,13 +17,13 @@ class Gong(me.Document):
     place_of_birth = me.StringField(max_length=64)
 
     clan = me.StringField(max_length=64)
-    clan_cn = me.StringField(max_length=64)
+    clan_zh = me.StringField(max_length=64)
 
     blessings = me.ListField(me.StringField())
     picture = me.ReferenceField("Picture")
     biography = me.StringField()
 
-    groups = me.ListField(me.StringField())
+    tags = me.ListField(me.StringField())
 
     links = me.ListField(me.StringField())
 
