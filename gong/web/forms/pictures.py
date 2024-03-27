@@ -9,8 +9,8 @@ from flask_mongoengine.wtf import model_form
 from .. import models
 
 
-BaseGongForm = model_form(
-    models.gongs.Gong,
+BasePctureForm = model_form(
+    models.BasePcture,
     FlaskForm,
     exclude=[
         "created_date",
@@ -35,7 +35,7 @@ BaseGongForm = model_form(
 )
 
 
-class GongForm(BaseGongForm):
+class PictureForm(BasePictureForm):
     blessings = TextListField("Blessings", widget=widgets.TextInput())
     tags = TextListField("Tags", widget=widgets.TextInput())
     links = TextListField("Links", widget=widgets.TextInput())
@@ -43,6 +43,14 @@ class GongForm(BaseGongForm):
     alternative_names_zh = TextListField(
         "Chinese Alternative Names", widget=widgets.TextInput()
     )
-    # pic = fields.FileField(
-    #     "Picture", validators=[FileAllowed(["png", "jpg"], "allow png and jpg")]
-    # )
+
+
+class UploadPicturesForm(FlaskForm):
+    uploaded_file = fields.FieldList(
+        fields.FileField(
+            "Upload File: JPG, PNG or, webp",
+            validators=[
+                FileAllowed(["png", "jpg", "jpeg", "webp"], "file extension not allow")
+            ],
+        )
+    )

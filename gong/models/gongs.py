@@ -3,11 +3,12 @@ import datetime
 
 
 class Gong(me.Document):
+    meta = {"collection": "gongs"}
     name = me.StringField(min_length=2, max_length=256)
     name_zh = me.StringField(min_length=2, max_length=256)
 
-    alternative_name = me.ListField(me.StringField(min_length=5, max_length=256))
-    alternative_name_zh = me.ListField(me.StringField(min_length=5, max_length=256))
+    alternative_names = me.ListField(me.StringField(min_length=5, max_length=256))
+    alternative_names_zh = me.ListField(me.StringField(min_length=5, max_length=256))
     avatar = me.ReferenceField("Gong")
 
     day_of_birth = me.DateTimeField()
@@ -20,7 +21,6 @@ class Gong(me.Document):
     clan_zh = me.StringField(max_length=64)
 
     blessings = me.ListField(me.StringField())
-    picture = me.ReferenceField("Picture")
     biography = me.StringField()
 
     tags = me.ListField(me.StringField())
@@ -33,3 +33,17 @@ class Gong(me.Document):
     updated_date = me.DateTimeField(
         required=True, default=datetime.datetime.now, auto_now=True
     )
+
+    def has_cover_image(self):
+        from . import pictures
+
+        picture = pictures.GongPicture.objects(is_cover=True, gong=self).first()
+        if picture:
+            return True
+
+        return False
+
+    def get_cover_image(self):
+        from . import pictures
+
+        return pictures.GongPicture.objects(is_cover=True, gong=self).first()

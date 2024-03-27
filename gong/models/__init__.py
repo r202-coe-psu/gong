@@ -4,9 +4,14 @@ from . import users
 from . import oauth2
 from . import gongs
 from . import gimsins
-from . import pictures
 from . import shrines
+from . import pictures
 
+from .gongs import Gong
+from .users import User
+from .gimsins import GimSin
+from .shrines import Shrine
+from .pictures import GimSinPicture, ShrinePicture
 
 db = MongoEngine()
 

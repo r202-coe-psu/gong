@@ -1,33 +1,32 @@
-{% extends '/gongs/index.html' %}
+{% extends '/base/default-dashboard.html' %}
 {% import '/base/html-renderer.html' as renderer %}
 
-
-{% block dashboard_title %}
-  {{ 'Create' if 'create' in request.path else 'Edit' }} Gong
-{% endblock %}
-
-{% block breadcrumbs %}
-  {{ super() }}
-  <div class="section active">Create Gong</div>
-{% endblock %}
-
 {% block content %}
-
-  <div class="ui segment">
-    <form method="POST" class="ui form">
+  <div>
+    <h2>Create Gong</h2>
+    <form class="ui form" method="POST">
       {{ form.hidden_tag() }}
       <div class="two fields">
-        {{ renderer.render_field(form.name) }}
-        {{ renderer.render_field(form.name_zh) }}
+      {{ renderer.render_field(form.name) }}
+      {{ renderer.render_field(form.name_zh) }}
+      </div>
+      <div class="two fields">
+      {{ renderer.render_field(form.alternative_names) }}
+      {{ renderer.render_field(form.alternative_names_zh) }}
       </div>
 
       <div class="two fields">
-        {{ renderer.render_field(form.auternative_name) }}
-        {{ renderer.render_field(form.auternative_name_zh) }}
+      {{ renderer.render_field(form.clan) }}
+      {{ renderer.render_field(form.clan_zh) }}
       </div>
 
-      <button name="create" type="submit" class="ui button primary">{{ 'Create' if 'create' in request.path else 'Edit' }}</button>
+      {{ renderer.render_field(form.avatar) }}
+      {{ renderer.render_field(form.place_of_birth) }}
+      {{ renderer.render_field(form.blessings) }}
+      {{ renderer.render_field(form.biography) }}
+      {{ renderer.render_field(form.tags) }}
+      {{ renderer.render_field(form.links) }}
+      <button type="submit" class="ui primary button">Submit</button>
     </form>
   </div>
-
 {% endblock %}

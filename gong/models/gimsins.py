@@ -12,7 +12,6 @@ class GimSin(me.Document):
 
     gong = me.ReferenceField("Gong")
     shrine = me.ReferenceField("Shrine")
-    pictures = me.ListField(me.ReferenceField("Picture"))
 
     creator = me.ReferenceField("User")
     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)

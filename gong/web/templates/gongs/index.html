@@ -12,70 +12,40 @@
 {% endblock %}
 
 {% block content %}
-  <div>
+  <div class="ui segment">
     <a class="ui icon primary button" href="{{ url_for('gongs.create_or_edit') }}"><i class="ui add icon"></i> Create</a>
   </div>
-<div class="ui grid">
-  <div class="ui cards">
-    {% for gong in gongs %}
-      <div class="card">
-        <div class="content">
-          {% set gong_state = gong_states[gong.id] %}
-          <div class="header">
-
-            {% if 'closed' == gong_state %}
-              <i class="gong closed icon green"></i>
-            {% elif 'opened' == gong_state %}
-              <i class="gong open icon red"></i>
-            {% else %}  
-              <i class="gong closed icon"></i>
-            {% endif %}
-            {{ gong.name | upper }}
-          </div>
-
-          <div class="meta">
-            {{ gong.device_type | title }} | {{ gong_states[gong.id] }}
-          </div>
-
-          {% if 'admin' in current_user.roles %}
-          <div style="position: absolute; right: 0;">
-          {#
-          <a href="{{url_for('administration.gong_authorizations.index', group_id=gong_group.id)}}"><i class="circular inverted green eye icon"></i></a>
-          #}
-          
-          <a href="{{ url_for('administration.history_logs.gong_logs', gong_id=gong.id) }}"><i class="circular inverted blue history icon"></i></a>
-          
-          </div>
+  <div class="padding-top: 1">
+    <div class="ui cards">
+      {% for gong in gongs %}
+        <div class="card">
+          {% if gong.has_cover_image() %}
+            <div class="image">
+              <img src="">
+            </div>
           {% endif %}
-        {#
-        <!-- <div class="description">-->
-        <!--   Elliot requested permission to view your contact details-->
-        <!-- </div>-->
-        #}
+          <div class="content">
+            <div class="header">
+              {{ gong.name }}
+            </div>
+            <div class="meta">
+              {{ gong.tags }}
+            </div>
+            <div class="description">
+              {{ gong.biography }}
+            </div>
+          </div>
+          <div class="extra content">
+            <a href="{{ url_for('gongs.create_or_edit', gong_id=gong.id) }}">
+              <i class="edit icon"></i>
+            </a>
+            <a href="{{ url_for('gongs.upload', gong_id=gong.id) }}">
+              <i class="upload icon"></i>
+            </a>
+
+          </div>
         </div>
-        <div class="extra content">
-          {% if gong.have_passcode %}
-            <div>
-              Passcode: {{ current_user.passcode }}
-              {#% if user_group[gong_group.id].is_supervisor(current_user) %}
-              <a href="{{url_for('administration.gongs.revoke_passcode', gong_id=gong.id)}}"><i class="redo icon"></i></a>
-              {% endif %#}
-            </div>
-          {% endif %}
-
-          {% if not gong.is_web_open %}
-            <div class="opengong ui two buttons">
-              <div id="{{ gong.id }}" class="ui basic disabled button">Opening via Web was disabled</div>
-            </div>
-          {% else%}
-            <div class="opengong ui two buttons">
-              <div id="{{ gong.id }}" class="ui green button">Open</div>
-            </div>
-          {% endif %}
-        </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
-</div>
-
 {% endblock %}

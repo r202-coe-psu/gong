@@ -28,7 +28,14 @@ def create_or_edit(gong_id):
         form = forms.gongs.GongForm(obj=gong)
 
     if not form.validate_on_submit():
+        print(form.errors)
         return render_template("/gongs/create-or-edit.html", form=form)
+
+    if not gong:
+        gong = models.Gong()
+
+    form.populate_obj(gong)
+    gong.save()
 
     return redirect(url_for("gongs.index"))
 
