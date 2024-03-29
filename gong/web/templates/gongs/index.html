@@ -45,10 +45,9 @@
             <a href="{{ url_for('gongs.create_or_edit', gong_id=gong.id) }}">
               <i class="edit icon"></i>
             </a>
-            <a href="{{ url_for('pictures.upload', type_="gong", type_id=gong.id) }}">
-              <i class="upload icon"></i>
+            <a href="{{ url_for('pictures.manage', type_="gong", type_id=gong.id) }}">
+              <i class="image icon"></i>
             </a>
-
           </div>
         </div>
       {% endfor %}

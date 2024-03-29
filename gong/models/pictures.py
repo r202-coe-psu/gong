@@ -3,7 +3,7 @@ import datetime
 
 
 class BasePicture(me.Document):
-    meta = {"allow_inheritance": True, "collection": "kimsin_pictures"}
+    meta = {"allow_inheritance": True, "collection": "pictures"}
 
     file = me.ImageField()
     description = me.StringField()

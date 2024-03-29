@@ -23,17 +23,32 @@
 
 
 {% macro render_fileinput(field) -%}
+
 <div class="field">
   {{ field.label }}
-  <div class="ui action input">
-    <input type="text" placeholder="{{ field.label.text }}" readonly class="attach-file-{{field.name}}">
-    {{ field(style="display: none;") }}
-    <div class="ui icon button attach-file-{{field.name}}">
-      <i class="attach icon"></i>
-    </div>
+  <div class="ui file action input">
+    {{ field }}
+    <label for="{{ field.id }}" class="ui blue button">
+       <i class="attach icon"></i>
+    </label>
   </div>
 </div>
+
 {%- endmacro %}
+
+{% macro render_fileinputs(field) -%}
+<div class="field">
+  {{ field.label }}
+  <div class="ui file action input">
+    {{ field }}
+    <label for="{{ field.id }}" class="ui blue button">
+       <i class="attach icon"></i>
+    </label>
+  </div>
+
+</div>
+{%- endmacro %}
+
 
 
 {% macro render_select_disabled(field) -%}

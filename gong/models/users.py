@@ -23,6 +23,10 @@ class User(me.Document, UserMixin):
     picture_url = me.StringField()
     resources = me.DictField()
 
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     def has_roles(self, roles):
         for role in roles:
             if role in self.roles:

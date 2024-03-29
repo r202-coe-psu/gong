@@ -1,0 +1,70 @@
+{% extends '/base/default-dashboard.html' %}
+{% import '/base/html-renderer.html' as renderer %}
+
+
+{% block dashboard_title %}
+Meeting Form
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="ui breadcrumb">
+    <a href="{{ url_for('dashboard.index') }}" class="section">Classes</a>
+</div>
+{% endblock %}
+
+{% block content %}
+  <div class="ui segment">
+    <div class="ui link cards">
+      {% for picture in pictures %}
+        <div class="card">
+          <div class="image">
+            <img src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) }}">
+          </div>
+          <div class="content">
+            <div class="header">{{ picture.description if picture.description else picture.file.filename }}</div>
+            <div class="meta">
+              <a>Upload {{ picture.owner.full_name }}</a>
+            </div>
+            <div class="description">
+              Created Date: {{ picture.created_date }}
+            </div>
+          </div>
+          <div class="extra content">
+            <span class="right floated">
+              <i class="trash icon"></i>
+            </span>
+            <span>
+              {% if picture.is_cover %}
+                <i class="check circle green icon"></i>
+              {% else %}
+                <a href="{{ url_for('pictures.set_cover_image', picture_id=picture.id, type_=type_, type_id=type_obj.id) }}">
+                  <i class="check circle icon"></i>
+                </a>
+              {% endif %}
+
+              <i class="edit icon"></i>
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="ui segment">
+    <form method="POST" class="ui form" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+       
+      {{ renderer.render_fileinputs(form.uploaded_files) }}
+      
+      <button type="submit" class="ui button primary">Upload</button>
+    </form>
+
+  </div>
+{% endblock content %}
+
+
+{% block additional_js %}
+  <script type="text/javascript">
+  </script>
+{% endblock %}
+

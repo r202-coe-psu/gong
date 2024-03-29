@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, send_file
 from flask_login import login_required, current_user
 
 from gong import models
@@ -16,65 +16,122 @@ def index():
     return render_template("/pictures/index.html", pictures=pictures)
 
 
-@module.route("/<picture_id>/download/<file_name>")
-def download(picture_id, file_name):
-    picture = models.Picture.objects.get(id=picture_id)
+@module.route("/<picture_id>/download/<filename>")
+def download(picture_id, filename):
 
-    if not picture or not picture.picture or picture.file.filename != filename:
+    picture = models.BasePicture.objects.get(id=picture_id)
+
+    if not picture or not picture.file or picture.file.filename != filename:
         return abort(403)
 
     response = send_file(
         picture.file,
-        download_name=picture.picture.filename,
-        mimetype=picture.picture.content_type,
+        download_name=picture.file.filename,
+        mimetype=picture.file.content_type,
     )
 
     return response
 
 
+@module.route("/<picture_id>/set-cover/<type_>/<type_id>")
+def set_cover_image(picture_id, type_, type_id):
+
+    picture = models.BasePicture.objects.get(id=picture_id)
+    type_objs = None
+    if type_ == "gong":
+        type_obj = models.Gong.objects(id=type_id, status="active").first()
+        models.GongPicture.objects(gong=type_obj).update(set__is_cover=False)
+    elif type_ == "shrine":
+        type_obj = models.Shrine.objects(id=type_id, status="active").first()
+        models.ShrinePicture.objects(shrine=type_obj).update(set__is_cover=False)
+    elif type_ == "gimsin":
+        type_obj = models.GimSin.objects(id=type_id, status="active").first()
+        models.GimSinPicture.objects(gimsin=type_obj).update(set__is_cover=False)
+
+    picture.is_cover = True
+    picture.save()
+
+    return redirect(url_for("pictures.manage", type_=type_, type_id=type_id))
+
+
 @module.route(
-    "/upload/{type_}/{type_id}",
-    methods=["POST"],
+    "/<type_>/<type_id>",
+    methods=["GET", "POST"],
+)
+@login_required
+def manage(type_, type_id):
+    type_obj = None
+    pictures = []
+    obj_url = ""
+    if type_ == "gong":
+        type_obj = models.Gong.objects(id=type_id, status="active").first()
+        obj_url = url_for("gongs.view", gong_id=type_id)
+        pictures = models.GongPicture.objects(gong=type_obj)
+    elif type_ == "shrine":
+        type_obj = models.Shrine.objects(id=type_id, status="active").first()
+        obj_url = url_for("shrines.view", shrines_id=type_id)
+        pictures = models.ShrinePicture.objects(gong=type_obj)
+    elif type_ == "gimsin":
+        type_obj = models.GimSin.objects(id=type_id, status="active").first()
+        obj_url = url_for("gimsins.view", gimsins_id=type_id)
+        pictures = models.GimSinPicture.objects(gong=type_obj)
+
+    form = forms.pictures.UploadPicturesForm()
+
+    return render_template(
+        "/pictures/manage.html",
+        form=form,
+        type_=type_,
+        type_obj=type_obj,
+        pictures=pictures,
+        obj_url=obj_url,
+    )
+
+
+@module.route(
+    "/upload/<type_>/<type_id>",
+    methods=["GET", "POST"],
 )
 @login_required
 def upload(type_, type_id):
 
-    form = forms.pictures.PictureForm()
+    type_obj = None
+    url = ""
+    if type_ == "gong":
+        type_obj = models.Gong.objects(id=type_id, status="active")
+        url = url_for("gongs.view", gong_id=type_id)
+    elif type_ == "shrine":
+        type_obj = models.Shrine.objects(id=type_id, status="active")
+        url = url_for("shrines.view", shrines_id=type_id)
+    elif type_ == "gimsin":
+        type_obj = models.GimSin.objects(id=type_id, status="active")
+        url = url_for("gimsins.view", gimsins_id=type_id)
+
+    form = forms.pictures.UploadPicturesForm()
 
     if not form.validate_on_submit():
-        return render_template(
-            "/meetings/report.html",
-            form=form,
+        return redirect(url_for("pictures.manage", type_=type_, type_id=type_id))
+
+    for f in form.uploaded_files.data:
+        if type_ == "gong":
+            picture = models.GongPicture()
+            picture.gong = type_obj
+        elif type_ == "shrine":
+            picture = models.ShrinePicture()
+            picture.shrine = type_obj
+        elif type_ == "gimsin":
+            picture = models.GimSinPicture()
+            picture.gimsin = type_obj
+
+        picture.updated_date = datetime.datetime.now()
+        picture.owner = current_user._get_current_object()
+        picture.ip_address = request.headers.get("X-Forwarded-For", request.remote_addr)
+
+        picture.file.put(
+            f,
+            filename=f.filename,
+            content_type=f.content_type,
         )
-
-    picture = None
-    url = ""
-
-    if type_ == "gong":
-        picture = models.GongPictur()
-        picture.gong = type_obj
-        url = url_for("gongs.view", gong_id=type_obj.id)
-    elif type_ == "shrine":
-        picture = models.GongPictur()
-        picture.shrine = type_obj
-        url = url_for("shrines.view", shrines_id=type_obj.id)
-    elif type_ == "gimsin":
-        picture = models.GimSinPicture()
-        picture.gimsin = type_obj
-        url = url_for("gimsins.view", gimsins_id=type_obj.id)
-
-    if picture:
         picture.save()
-
-    form.populate_obj(picture)
-    picture.updated_date = datetime.datetime.now()
-    picture.owner = current_user._get_current_object()
-    picture.ip_address = request.headers.get("X-Forwarded-For", request.remote_addr)
-
-    picture.file.put(
-        form.uploaded_file.data,
-        filename=form.uploaded_file.data.filename,
-        content_type=form.uploaded_file.data.content_type,
-    )
 
     return redirect(url)
