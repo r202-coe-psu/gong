@@ -9,8 +9,8 @@ from flask_mongoengine.wtf import model_form
 from .. import models
 
 
-BaseGongForm = model_form(
-    models.gongs.Gong,
+BaseGimSinForm = model_form(
+    models.GimSin,
     FlaskForm,
     exclude=[
         "created_date",
@@ -41,7 +41,7 @@ BaseGongForm = model_form(
 )
 
 
-class GongForm(BaseGongForm):
+class GimSinForm(BaseGimSinForm):
     blessings = TextListField("Blessings", widget=widgets.TextInput())
     tags = TextListField("Tags", widget=widgets.TextInput())
     links = TextListField("Links", widget=widgets.TextInput())

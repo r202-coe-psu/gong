@@ -5,23 +5,38 @@ import datetime
 class Shrine(me.Document):
     meta = {"collection": "shrines"}
 
-    name = me.StringField(min_length=5, max_length=256)
-    name_zh = me.StringField(min_length=5, max_length=256)
+    name = me.StringField(min_length=1, max_length=256)
+    name_zh = me.StringField(max_length=256)
+    name_en = me.StringField(max_length=256)
 
     opened_date = me.DateTimeField()
     biography = me.StringField()
-    pictures = me.ListField(me.ReferenceField("Picture"))
 
     links = me.ListField(me.StringField())
 
     presidents = me.ListField(me.ReferenceField("GimSin"))
 
-    location = me.PointField()
-
     creator = me.ReferenceField("User")
+
     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     updated_date = me.DateTimeField(
         required=True, default=datetime.datetime.now, auto_now=True
     )
 
+    coordinates = me.PointField(auto_index=False)
+
     status = me.StringField(default="active")
+
+    def has_cover_image(self):
+        from . import pictures
+
+        picture = pictures.ShrinePicture.objects(is_cover=True, shrine=self).first()
+        if picture:
+            return True
+
+        return False
+
+    def get_cover_image(self):
+        from . import pictures
+
+        return pictures.ShrinePicture.objects(is_cover=True, shrine=self).first()

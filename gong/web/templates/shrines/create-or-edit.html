@@ -1,0 +1,46 @@
+{% extends '/base/default-dashboard.html' %}
+{% import '/base/html-renderer.html' as renderer %}
+
+{% block content %}
+  <div>
+    <h2>Create Gong</h2>
+    <form class="ui form" method="POST">
+      {{ form.hidden_tag() }}
+      <div class="three fields">
+      {{ renderer.render_field(form.name) }}
+      {{ renderer.render_field(form.name_zh) }}
+      {{ renderer.render_field(form.name_en) }}
+      </div>
+
+      {{ renderer.render_multiple_select(form.presidents) }}
+      {{ renderer.render_calendar(form.opened_date, 'opened_date_calendar') }}
+      {{ renderer.render_field(form.biography) }}
+
+      <div class="two fields">
+      {{ renderer.render_field(form.coordinates) }}
+      {{ renderer.render_field(form.links) }}
+      </div>
+      <button type="submit" class="ui primary button">Submit</button>
+    </form>
+  </div>
+{% endblock %}
+
+{% block additional_js %}
+  <script type="text/javascript">
+    date_formatter = {
+      date: 'YYYY-MM-DD'
+    };
+
+    var calendar_setting = {
+      type: 'date',
+      monthFirst: false,
+      formatter: date_formatter,
+      today: true,
+      ampm: false,
+    };
+
+    $('#opened_date_calendar').calendar(calendar_setting);
+
+  </script>
+{% endblock %}
+

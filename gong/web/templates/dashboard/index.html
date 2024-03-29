@@ -2,6 +2,8 @@
 
 {% block content %}
   <div class="ui segment">
-    <a class="ui button primary" href="{{ url_for('gongs.index') }}">Gong</a>
+    <a class="ui button primary icon" href="{{ url_for('gongs.index') }}"><i class="yin yang icon"></i> Gong</a>
+    <a class="ui button primary icon" href="{{ url_for('shrines.index') }}"><i class="torii gate icon"></i> Shrine</a>
+    <a class="ui button primary icon" href="{{ url_for('gimsins.index') }}"><i class="user tag icon"></i> GimSin</a>
   </div>
 {% endblock %}

@@ -1,0 +1,56 @@
+{% extends '/base/default-dashboard.html' %}
+
+{% block dashboard_title %}Shrine{% endblock %}
+
+{% block breadcrumbs %}
+  {% if request.endpoint == 'shrines.index' %}
+    <div class="active section">Shrine</div>
+  {% else %}
+    <a class="section" href="{{ url_for('shrines.index') }}">Shrine</a>
+    <div class="divider"> / </div>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="ui segment">
+    <a class="ui icon primary button" href="{{ url_for('shrines.create_or_edit') }}"><i class="ui add icon"></i> Create</a>
+  </div>
+  <div class="padding-top: 1">
+    <div class="ui cards">
+      {% for shrine in shrines %}
+        <div class="card">
+          <div class="image">
+            {% if shrine.has_cover_image() %}
+              {% set picture = shrine.get_cover_image() %}
+              <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) }}">
+            {% else %}
+              <div class="ui placeholder">
+                <div class="rectangular image"></div>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="content">
+            <div class="header">
+              {{ shrine.name }}
+            </div>
+            <div class="meta">
+              {{ shrine.tags }}
+            </div>
+            <div class="description">
+              {{ shrine.biography }}
+            </div>
+          </div>
+          <div class="extra content">
+            <a href="{{ url_for('shrines.create_or_edit', shrine_id=shrine.id) }}">
+              <i class="edit icon"></i>
+            </a>
+            <a href="{{ url_for('pictures.manage', type_="shrine", type_id=shrine.id) }}">
+              <i class="image icon"></i>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

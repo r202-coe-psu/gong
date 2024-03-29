@@ -22,4 +22,20 @@ class GimSin(me.Document):
         required=True, default=datetime.datetime.now, auto_now=True
     )
 
+    coordinate = me.PointField(auto_index=False)
+
     status = me.StringField(default="active")
+
+    def has_cover_image(self):
+        from . import pictures
+
+        picture = pictures.GimSinPicture.objects(is_cover=True, gimsin=self).first()
+        if picture:
+            return True
+
+        return False
+
+    def get_cover_image(self):
+        from . import pictures
+
+        return pictures.GimSinPicture.objects(is_cover=True, gimsin=self).first()
