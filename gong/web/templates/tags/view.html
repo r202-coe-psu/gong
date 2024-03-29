@@ -2,6 +2,14 @@
 
 {% block content %}
   <div class="ui segment">
+    <h2 class="ui header">
+      <i class="tag icon"></i>
+      <div class="content">
+        Tags: {{ tag }}
+      </div>
+    </h2>
+  </div>
+  <div class="ui segment">
     <div class="ui link cards">
       {% for gong in gongs %}
         <div class="card">
@@ -19,7 +27,7 @@
             <div class="header">{{ gong.name }} | {{ gong.name_zh }}</div>
             <div class="meta">
               {% for tag in gong.tags %}
-                <a href="{{ url_for('tags.view', tag=tag)  }}">{{ tag }}</a>
+                <a>{{ tag }}</a>
               {% endfor %}
             </div>
             <div class="description">
