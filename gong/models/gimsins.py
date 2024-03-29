@@ -5,8 +5,9 @@ import datetime
 class GimSin(me.Document):
     meta = {"collection": "gimsins"}
 
-    name = me.StringField(min_length=5, max_length=256)
-    name_ch = me.StringField(min_length=5, max_length=256)
+    name = me.StringField(min_length=1, max_length=256)
+    name_zh = me.StringField(min_length=1, max_length=256)
+    name_en = me.StringField(min_length=1, max_length=256)
 
     biography = me.StringField()
 
@@ -14,7 +15,11 @@ class GimSin(me.Document):
     shrine = me.ReferenceField("Shrine")
 
     creator = me.ReferenceField("User")
+    contributor = me.ReferenceField("User")
+
     created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
     updated_date = me.DateTimeField(
         required=True, default=datetime.datetime.now, auto_now=True
     )
+
+    status = me.StringField(default="active")

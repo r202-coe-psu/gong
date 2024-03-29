@@ -11,7 +11,7 @@ from .gongs import Gong
 from .users import User
 from .gimsins import GimSin
 from .shrines import Shrine
-from .pictures import GimSinPicture, ShrinePicture
+from .pictures import BasePicture, GongPicture, GimSinPicture, ShrinePicture
 
 db = MongoEngine()
 

@@ -9,8 +9,8 @@ from flask_mongoengine.wtf import model_form
 from .. import models
 
 
-BasePctureForm = model_form(
-    models.BasePcture,
+BasePictureForm = model_form(
+    models.BasePicture,
     FlaskForm,
     exclude=[
         "created_date",

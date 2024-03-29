@@ -6,22 +6,31 @@
     <h2>Create Gong</h2>
     <form class="ui form" method="POST">
       {{ form.hidden_tag() }}
-      <div class="two fields">
+      <div class="three fields">
       {{ renderer.render_field(form.name) }}
       {{ renderer.render_field(form.name_zh) }}
-      </div>
-      <div class="two fields">
-      {{ renderer.render_field(form.alternative_names) }}
-      {{ renderer.render_field(form.alternative_names_zh) }}
+      {{ renderer.render_field(form.name_en) }}
       </div>
 
-      <div class="two fields">
+      <div class="three fields">
+      {{ renderer.render_field(form.alternative_names) }}
+      {{ renderer.render_field(form.alternative_names_zh) }}
+      {{ renderer.render_field(form.alternative_names_en) }}
+      </div>
+
+      <div class="three fields">
       {{ renderer.render_field(form.clan) }}
       {{ renderer.render_field(form.clan_zh) }}
+      {{ renderer.render_field(form.clan_en) }}
+      </div>
+
+      <div class="three fields">
+      {{ renderer.render_field(form.place_of_birth) }}
+      {{ renderer.render_field(form.place_of_birth_zh) }}
+      {{ renderer.render_field(form.place_of_birth_en) }}
       </div>
 
       {{ renderer.render_field(form.avatar) }}
-      {{ renderer.render_field(form.place_of_birth) }}
       {{ renderer.render_field(form.blessings) }}
       {{ renderer.render_field(form.biography) }}
       {{ renderer.render_field(form.tags) }}

@@ -15,6 +15,8 @@ class BasePicture(me.Document):
 
     ip_address = me.StringField(required=True)
 
+    status = me.StringField(status="active")
+
 
 class GongPicture(BasePicture):
 

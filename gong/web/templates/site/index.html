@@ -1,4 +1,44 @@
 {% extends "/base/default-page.html" %}
 
 {% block content %}
+  <div class="ui segment">
+    <div class="ui link cards">
+      {% for gong in gongs %}
+        <div class="card">
+          <div class="image">
+            {% if gong.has_cover_image() %}
+              {% set picture = gong.get_cover_image() %}
+              <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) }}">
+            {% else %}
+              <div class="ui placeholder">
+                <div class="rectangular image"></div>
+              </div>
+            {% endif %}
+          </div>
+          <div class="content">
+            <div class="header">{{ gong.name }} | {{ gong.name_zh }}</div>
+            <div class="meta">
+              {% for tag in gong.tags %}
+                <a>{{ tag }}</a>
+              {% endfor %}
+            </div>
+            <div class="description">
+              Description
+            </div>
+          </div>
+          <div class="extra content">
+            <span class="right floated">
+              
+            </span>
+            <span>
+              <i class="torii gate icon"></i>
+              x ศาล
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
 {% endblock content %}

@@ -19,11 +19,17 @@
     <div class="ui cards">
       {% for gong in gongs %}
         <div class="card">
-          {% if gong.has_cover_image() %}
-            <div class="image">
-              <img src="">
-            </div>
-          {% endif %}
+          <div class="image">
+            {% if gong.has_cover_image() %}
+              {% set picture = gong.get_cover_image() %}
+              <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) }}">
+            {% else %}
+              <div class="ui placeholder">
+                <div class="rectangular image"></div>
+              </div>
+            {% endif %}
+          </div>
+
           <div class="content">
             <div class="header">
               {{ gong.name }}
@@ -39,7 +45,7 @@
             <a href="{{ url_for('gongs.create_or_edit', gong_id=gong.id) }}">
               <i class="edit icon"></i>
             </a>
-            <a href="{{ url_for('gongs.upload', gong_id=gong.id) }}">
+            <a href="{{ url_for('pictures.upload', type_="gong", type_id=gong.id) }}">
               <i class="upload icon"></i>
             </a>
 

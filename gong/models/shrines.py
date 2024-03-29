@@ -23,3 +23,5 @@ class Shrine(me.Document):
     updated_date = me.DateTimeField(
         required=True, default=datetime.datetime.now, auto_now=True
     )
+
+    status = me.StringField(default="active")

@@ -11,4 +11,5 @@ module = Blueprint("site", __name__)
 @caches.cache.cached(timeout=600)
 def index():
     now = datetime.datetime.now()
-    return render_template("/site/index.html")
+    gongs = models.Gong.objects(status="active")
+    return render_template("/site/index.html", gongs=gongs)
