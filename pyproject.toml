@@ -14,7 +14,7 @@ markdown = "^3.5"
 pillow = "^10.0.1"
 flask-login = "^0.6.3"
 python-dotenv = "^1.0.0"
-flask = "^3.0.0"
+flask = "^3.0.2"
 brython = "3.11"
 
 [tool.poetry.dev-dependencies]
