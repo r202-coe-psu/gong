@@ -19,7 +19,9 @@ RUN $PYTHON -m pip install poetry gunicorn
 WORKDIR /app
 COPY gong/cmd /app/gong/cmd
 COPY poetry.lock pyproject.toml README.md /app/
-RUN $PYTHON -m poetry config virtualenvs.create false && $PYTHON -m poetry install --no-interaction --only main
+RUN . /venv/bin/activate \
+	&& poetry config virtualenvs.create false \
+	&& poetry install --no-interaction --only main
 
 COPY gong/web/static/package.json gong/web/static/package-lock.json gong/web/static/
 RUN npm install --prefix gong/web/static
