@@ -9,7 +9,7 @@ RUN apt install -y python3 python3-dev python3-pip python3-venv npm git locales
 # ENV LC_ALL th_TH.UTF-8
 
 
-ENV KONG_SETTINGS=/app/.env
+ENV GONG_SETTINGS=/app/.env
 
 RUN python3 -m venv /venv
 ENV PYTHON=/venv/bin/python3
