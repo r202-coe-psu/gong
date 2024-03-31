@@ -1,44 +1,74 @@
 {% extends "/base/default-page.html" %}
 
 {% block content %}
-  <div class="ui segment">
-    <div class="ui link cards">
-      {% for gong in gongs %}
-        <div class="card">
-          <div class="image">
-            {% if gong.has_cover_image() %}
-              {% set picture = gong.get_cover_image() %}
-              <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) }}">
-            {% else %}
-              <div class="ui placeholder">
-                <div class="rectangular image"></div>
+
+  <div class="ui segment two columns grid">
+    <div class="column">
+      <div id="mapid" style="z-index:1;height:30rem;width:100%;"></div>
+    </div>
+    <div class="column">
+      <h1>Gong</h1>
+      <div class="ui link cards">
+        {% for gong in gongs %}
+          <div class="card">
+            <div class="image">
+              {% if gong.has_cover_image() %}
+                {% set picture = gong.get_cover_image() %}
+                <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) }}">
+              {% else %}
+                <div class="ui placeholder">
+                  <div class="rectangular image"></div>
+                </div>
+              {% endif %}
+            </div>
+            <div class="content">
+              <div class="header">{{ gong.name }} | {{ gong.name_zh }}</div>
+              <div class="meta">
+                {% for tag in gong.tags %}
+                  <a href="{{ url_for('tags.view', tag=tag)  }}">{{ tag }}</a>
+                {% endfor %}
               </div>
-            {% endif %}
-          </div>
-          <div class="content">
-            <div class="header">{{ gong.name }} | {{ gong.name_zh }}</div>
-            <div class="meta">
-              {% for tag in gong.tags %}
-                <a href="{{ url_for('tags.view', tag=tag)  }}">{{ tag }}</a>
-              {% endfor %}
+              <div class="description">
+                Description
+              </div>
             </div>
-            <div class="description">
-              Description
+            <div class="extra content">
+              <span class="right floated">
+                
+              </span>
+              <span>
+                <i class="torii gate icon"></i>
+                x ศาล
+              </span>
             </div>
           </div>
-          <div class="extra content">
-            <span class="right floated">
-              
-            </span>
-            <span>
-              <i class="torii gate icon"></i>
-              x ศาล
-            </span>
-          </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 
 
 {% endblock content %}
+
+{% block additional_js %}
+
+  <script src="{{ url_for('static', filename='node_modules/brython/brython.js') | add_date_url}}"></script>
+  <script src="{{ url_for('static', filename='node_modules/brython/brython_stdlib.js') | add_date_url}}"></script>
+
+
+  <script type="text/javascript" src="{{ url_for('static', filename='brython/maps.brython.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='brython/controllers.brython.js') }}"></script>
+
+
+<script type="text/python">
+  from controllers import MainController
+  from browser import aio
+  map = MainMonitor(
+    "th",
+    )
+  map.start()
+</script>
+
+
+
+{% endblock additional_js %}

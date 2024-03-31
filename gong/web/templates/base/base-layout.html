@@ -10,8 +10,6 @@
 
     <script src="{{ url_for('static', filename='node_modules/jquery/dist/jquery.min.js') | add_date_url}}"></script>
     <script src="{{ url_for('static', filename='node_modules/fomantic-ui-css/semantic.min.js') | add_date_url}}"></script>
-    <script src="{{ url_for('static', filename='node_modules/brython/brython.js') | add_date_url}}"></script>
-    <script src="{{ url_for('static', filename='node_modules/brython/brython_stdlib.js') | add_date_url}}"></script>
 
     <style type="text/css">
       body {
@@ -21,6 +19,7 @@
     
     {% block default_head %}{% endblock %}
     {% block additional_head %}{% endblock %}
+    {% include "/base/google_analytic.html" %}
   </head>
 
   <body onload="brython()">

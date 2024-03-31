@@ -1,3 +1,3 @@
 #!/bin/sh
-
+$(pwd)/scripts/auto-build-brython &
 GONG_SETTINGS=$(pwd)/.env DEBUG=1 gong-web -H 0.0.0.0 -d
