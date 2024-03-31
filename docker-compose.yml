@@ -34,11 +34,15 @@ services:
             - 10080:9000
         links:
             - mongodb
+        depends_on:
+            - mongodb
         networks:
             - default
-        restart: always
+        restart: on-failure:5
         environment:
             GONG_SETTINGS: /app/.env
+        env_file:
+            - .env
         command:
           /venv/bin/gunicorn -w 2 --bind 0.0.0.0:9000 "gong.web:create_app()"
         logging:
