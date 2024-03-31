@@ -57,15 +57,15 @@
 
 
   <script type="text/javascript" src="{{ url_for('static', filename='brython/maps.brython.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='brython/gongs.brython.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='brython/controllers.brython.js') }}"></script>
 
 
 <script type="text/python">
   from controllers import MainController
-  from browser import aio
-  map = MainMonitor(
+  map = MainController(
     "th",
-    )
+  )
   map.start()
 </script>
 

@@ -4,7 +4,6 @@ from browser import ajax, document, html, window, timer
 import javascript as js
 
 from .map import Map
-from stations import sensor_colors, sensor_infos
 
 
 class MainMap(Map):
@@ -14,12 +13,10 @@ class MainMap(Map):
         zoom,
         min_zoom,
         lang_code,
-        # project_id,
     ):
         super().__init__(center, zoom, min_zoom)
 
         self.lang_code = lang_code
-        # self.project_id = project_id
 
         self.sensor_marker_layers = {}
         self.sensor_markers = {}
@@ -45,9 +42,6 @@ class MainMap(Map):
             await self.update_hotspot_marker(document_id, data)
 
     def remove_all_sensor_marker(self, marker_id):
-        # for marker in self.sensor_marker_layers.values():
-        #     # print(marker)
-        #     self.map.removeLayer(marker)
         if marker_id in self.sensor_marker_layers.keys():
             self.map.removeLayer(self.sensor_marker_layers.get(marker_id))
 
