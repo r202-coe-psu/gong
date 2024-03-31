@@ -1,0 +1,28 @@
+{% extends '/gongs/index.html' %}
+{% import '/base/galleries.html' as galleries %}
+
+{% block dashboard_title %}Gong{% endblock %}
+
+{% block breadcrumbs %}
+  {% if request.endpoint == 'gongs.index' %}
+    <div class="active section">Gong</div>
+  {% else %}
+    <a class="section" href="{{ url_for('gongs.index') }}">Gong</a>
+    <div class="divider"> / </div>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="ui segment">
+    <a class="ui icon primary button" href="{{ url_for('gongs.index') }}"><i class="ui yin yang icon"></i> Gong</a>
+    <a class="ui icon primary button" href="{{ url_for('gongs.create_or_edit') }}"><i class="edit icon"></i> Edit</a>
+    <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='gong', type_id=gong.id) }}"><i class="image icon"></i> Edit</a>
+  </div>
+  <div class="ui segment">
+    <h1>{{ gong.name }}</h1>
+
+    <div>
+      {{ galleries.render_cards(gong) }}
+    </div>
+  </div>
+{% endblock %}

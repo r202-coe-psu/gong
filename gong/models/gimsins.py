@@ -39,3 +39,8 @@ class GimSin(me.Document):
         from . import pictures
 
         return pictures.GimSinPicture.objects(is_cover=True, gimsin=self).first()
+
+    def get_images(self):
+        from . import pictures
+
+        return pictures.GimSinPicture.objects(gimsin=self)

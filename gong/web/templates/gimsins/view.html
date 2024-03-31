@@ -1,0 +1,29 @@
+{% extends '/base/default-dashboard.html' %}
+{% import '/base/galleries.html' as galleries %}
+
+
+{% block dashboard_title %}Gong{% endblock %}
+
+{% block breadcrumbs %}
+  {% if request.endpoint == 'gimsins.index' %}
+    <div class="active section">Gong</div>
+  {% else %}
+    <a class="section" href="{{ url_for('gimsins.index') }}">Gong</a>
+    <div class="divider"> / </div>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="ui segment">
+    <a class="ui icon primary button" href="{{ url_for('gimsins.index') }}"><i class="ui yin yang icon"></i> Gong</a>
+    <a class="ui icon primary button" href="{{ url_for('gimsins.create_or_edit') }}"><i class="edit icon"></i> Edit</a>
+    <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='gimsin', type_id=gimsin.id) }}"><i class="image icon"></i> Edit</a>
+  </div>
+  <div class="ui segment">
+    <h1>{{ gimsin.name }}</h1>
+    <div>
+      {{ galleries.render_cards(gimsin) }}
+    </div>
+
+  </div>
+{% endblock %}

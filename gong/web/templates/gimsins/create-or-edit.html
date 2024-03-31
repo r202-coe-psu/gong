@@ -1,24 +1,25 @@
-{% extends '/gongs/index.html' %}
+{% extends '/gimsins/index.html' %}
 {% import '/base/html-renderer.html' as renderer %}
 
-
-{% block dashboard_title %}
-  {{ 'Create' if 'create' in request.path else 'Edit' }} Gong
-{% endblock %}
-
-{% block breadcrumbs %}
-  {{ super() }}
-  <div class="section active">Create Gong</div>
-{% endblock %}
-
 {% block content %}
-
-  <div class="ui segment">
-    <form method="POST" class="ui form">
+  <div>
+    <h2>Create GimSin</h2>
+    <form class="ui form" method="POST">
       {{ form.hidden_tag() }}
+      <div class="three fields">
       {{ renderer.render_field(form.name) }}
-      <button name="create" type="submit" class="ui button primary">{{ 'Create' if 'create' in request.path else 'Edit' }}</button>
+      {{ renderer.render_field(form.name_zh) }}
+      {{ renderer.render_field(form.name_en) }}
+      </div>
+
+      <div class="two fields">
+      {{ renderer.render_select(form.gong) }}
+      {{ renderer.render_select(form.shrine) }}
+      </div>
+
+      {{ renderer.render_field(form.biography) }}
+      {{ renderer.render_field(form.coordinates) }}
+      <button type="submit" class="ui primary button">Submit</button>
     </form>
   </div>
-
 {% endblock %}

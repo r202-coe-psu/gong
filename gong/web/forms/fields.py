@@ -38,3 +38,28 @@ class TagListField(Field):
 
 class TextListField(TagListField):
     widget = widgets.TextArea()
+
+
+class CoordinatesField(TagListField):
+    widget = widgets.TextArea()
+
+    def process_formdata(self, valuelist):
+        self.data = []
+        if valuelist:
+            for l in valuelist[0].splitlines():
+                for tag in l.split(","):
+                    tag = tag.strip()
+                    if not tag:
+                        continue
+                    self.data.append(float(tag))
+
+    def _value(self):
+        if self.data:
+            data = self.data
+            print(self.data, type(self.data))
+            if type(self.data) == dict:
+                data = self.data.get("coordinates", [])
+
+            return ", ".join([str(i) for i in data])
+        else:
+            return ""

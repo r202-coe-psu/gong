@@ -36,9 +36,13 @@ def create_or_edit(gong_id):
     form.populate_obj(gong)
     gong.save()
 
-    return redirect(url_for("gongs.index"))
+    return redirect(url_for("gongs.view", gong_id=gong.id))
 
 
 @module.route("/<gong_id>")
 def view(gong_id):
-    return render_template("/gongs/index.html")
+    gong = models.Gong.objects.get(id=gong_id, status="active")
+    if not gong:
+        return redirect(url_for("gongs.index"))
+
+    return render_template("/gongs/view.html", gong=gong)

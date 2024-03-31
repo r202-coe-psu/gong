@@ -3,7 +3,7 @@
 
 
 {% block dashboard_title %}
-Meeting Form
+Picture: {{ type_obj.name }}
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -51,14 +51,29 @@ Meeting Form
   </div>
 
   <div class="ui segment">
-    <form method="POST" class="ui form" enctype="multipart/form-data">
+    <form method="POST" class="ui form" enctype="multipart/form-data" action='{{ url_for('pictures.upload', type_=type_, type_id=type_id) }}'>
       {{ form.hidden_tag() }}
        
+      {{ renderer.render_select(form.public) }}
       {{ renderer.render_fileinputs(form.uploaded_files) }}
       
       <button type="submit" class="ui button primary">Upload</button>
     </form>
 
+  </div>
+
+
+  <div class="ui segment">
+    {% if type_ == 'gong' %}
+      <a href="{{ url_for('gongs.index') }}" class="ui primary button"><i class="ui yin yang icon"></i>Gong</a>
+      <a href="{{ url_for('gongs.view', gong_id=type_obj.id) }}" class="ui primary button">{{ type_obj.name }}</a>
+    {% elif type_ == 'gimsin' %}
+      <a href="{{ url_for('gimsins.index') }}" class="ui primary button"><i class="ui user tag icon"></i>GimSin</a>
+      <a href="{{ url_for('gimsins.view', gimsin_id=type_obj.id) }}" class="ui primary button">{{ type_obj.name }}</a>
+    {% elif type_ == 'shrine' %}
+      <a href="{{ url_for('shrines.index') }}" class="ui primary button"><i class="ui torii gate icon"></i>Shrine</a>
+      <a href="{{ url_for('shrines.view', shrine_id=type_obj.id) }}" class="ui primary button">{{ type_obj.name }}</a>
+    {% endif %}
   </div>
 {% endblock content %}
 

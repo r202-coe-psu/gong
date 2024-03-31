@@ -56,3 +56,8 @@ class Gong(me.Document):
         from . import pictures
 
         return pictures.GongPicture.objects(is_cover=True, gong=self).first()
+
+    def get_images(self):
+        from . import pictures
+
+        return pictures.GongPicture.objects(gong=self)

@@ -35,17 +35,22 @@
               {{ gong.name }}
             </div>
             <div class="meta">
-              {{ gong.tags }}
+              {% for tag in gong.tags %}
+                <a href="{{ url_for('tags.view', tag=tag) }}">{{ tag }}</a>
+              {% endfor %}
             </div>
             <div class="description">
               {{ gong.biography }}
             </div>
           </div>
           <div class="extra content">
-            <a href="{{ url_for('gongs.create_or_edit', gong_id=gong.id) }}">
+            <a href="{{ url_for('gongs.view', gong_id=gong.id) }}" class="ui primary icon button">
+              <i class="eye icon"></i>
+            </a>
+            <a href="{{ url_for('gongs.create_or_edit', gong_id=gong.id) }}" class="ui primary icon button">
               <i class="edit icon"></i>
             </a>
-            <a href="{{ url_for('pictures.manage', type_="gong", type_id=gong.id) }}">
+            <a href="{{ url_for('pictures.manage', type_="gong", type_id=gong.id) }}" class="ui primary icon button">
               <i class="image icon"></i>
             </a>
           </div>

@@ -40,3 +40,8 @@ class Shrine(me.Document):
         from . import pictures
 
         return pictures.ShrinePicture.objects(is_cover=True, shrine=self).first()
+
+    def get_images(self):
+        from . import pictures
+
+        return pictures.ShrinePicture.objects(shrine=self)

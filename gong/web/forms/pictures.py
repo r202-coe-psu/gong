@@ -26,6 +26,9 @@ class PictureForm(BasePictureForm):
 
 
 class UploadPicturesForm(FlaskForm):
+    public = fields.SelectField(
+        "Public", default="cc-by-nc-sa", choices=models.pictures.PICTURE_PUBLIC_CHOICES
+    )
     uploaded_files = fields.MultipleFileField(
         "Upload File: JPG, PNG or, webp",
         validators=[

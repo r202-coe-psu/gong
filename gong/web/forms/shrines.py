@@ -1,6 +1,6 @@
 from wtforms import validators
 from wtforms import fields, widgets
-from .fields import TextListField
+from .fields import TextListField, CoordinatesField
 
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
@@ -26,5 +26,5 @@ BaseShrineForm = model_form(
 
 
 class ShrineForm(BaseShrineForm):
-    coordinates = TextListField("Coordinates", widget=widgets.TextInput())
+    coordinates = CoordinatesField("Coordinates", widget=widgets.TextInput())
     links = TextListField("Links", widget=widgets.TextInput())

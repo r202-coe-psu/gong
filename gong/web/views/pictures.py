@@ -62,19 +62,15 @@ def set_cover_image(picture_id, type_, type_id):
 def manage(type_, type_id):
     type_obj = None
     pictures = []
-    obj_url = ""
     if type_ == "gong":
         type_obj = models.Gong.objects(id=type_id, status="active").first()
-        obj_url = url_for("gongs.view", gong_id=type_id)
         pictures = models.GongPicture.objects(gong=type_obj)
     elif type_ == "shrine":
         type_obj = models.Shrine.objects(id=type_id, status="active").first()
-        obj_url = url_for("shrines.view", shrines_id=type_id)
-        pictures = models.ShrinePicture.objects(gong=type_obj)
+        pictures = models.ShrinePicture.objects(shrine=type_obj)
     elif type_ == "gimsin":
         type_obj = models.GimSin.objects(id=type_id, status="active").first()
-        obj_url = url_for("gimsins.view", gimsins_id=type_id)
-        pictures = models.GimSinPicture.objects(gong=type_obj)
+        pictures = models.GimSinPicture.objects(gimsin=type_obj)
 
     form = forms.pictures.UploadPicturesForm()
 
@@ -83,8 +79,8 @@ def manage(type_, type_id):
         form=form,
         type_=type_,
         type_obj=type_obj,
+        type_id=type_id,
         pictures=pictures,
-        obj_url=obj_url,
     )
 
 
@@ -96,16 +92,12 @@ def manage(type_, type_id):
 def upload(type_, type_id):
 
     type_obj = None
-    url = ""
     if type_ == "gong":
-        type_obj = models.Gong.objects(id=type_id, status="active")
-        url = url_for("gongs.view", gong_id=type_id)
+        type_obj = models.Gong.objects(id=type_id, status="active").first()
     elif type_ == "shrine":
-        type_obj = models.Shrine.objects(id=type_id, status="active")
-        url = url_for("shrines.view", shrines_id=type_id)
+        type_obj = models.Shrine.objects(id=type_id, status="active").first()
     elif type_ == "gimsin":
-        type_obj = models.GimSin.objects(id=type_id, status="active")
-        url = url_for("gimsins.view", gimsins_id=type_id)
+        type_obj = models.GimSin.objects(id=type_id, status="active").first()
 
     form = forms.pictures.UploadPicturesForm()
 
@@ -119,10 +111,12 @@ def upload(type_, type_id):
         elif type_ == "shrine":
             picture = models.ShrinePicture()
             picture.shrine = type_obj
+
         elif type_ == "gimsin":
             picture = models.GimSinPicture()
             picture.gimsin = type_obj
 
+        picture.public = form.public.data
         picture.updated_date = datetime.datetime.now()
         picture.owner = current_user._get_current_object()
         picture.ip_address = request.headers.get("X-Forwarded-For", request.remote_addr)
@@ -134,4 +128,4 @@ def upload(type_, type_id):
         )
         picture.save()
 
-    return redirect(url)
+    return redirect(url_for("pictures.manage", type_=type_, type_id=type_id))

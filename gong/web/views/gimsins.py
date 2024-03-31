@@ -12,7 +12,7 @@ module = Blueprint("gimsins", __name__, url_prefix="/gimsins")
 @module.route("")
 @login_required
 def index():
-    gimsins = models.gimsins.Gong.objects()
+    gimsins = models.GimSin.objects()
     return render_template("/gimsins/index.html", gimsins=gimsins)
 
 
@@ -22,9 +22,9 @@ def index():
 def create_or_edit(gimsin_id):
     gimsin = None
 
-    form = forms.gimsins.GongForm()
+    form = forms.gimsins.GimSinForm()
     if gimsin_id:
-        gimsin = models.gimsins.Gong.objects.get(id=gimsin_id)
+        gimsin = models.GimSin.objects.get(id=gimsin_id)
         form = forms.gimsins.GongForm(obj=gimsin)
 
     if not form.validate_on_submit():
@@ -32,14 +32,18 @@ def create_or_edit(gimsin_id):
         return render_template("/gimsins/create-or-edit.html", form=form)
 
     if not gimsin:
-        gimsin = models.Gong()
+        gimsin = models.GimSin()
 
     form.populate_obj(gimsin)
     gimsin.save()
 
-    return redirect(url_for("gimsins.index"))
+    return redirect(url_for("gimsins.view", gimsin_id=gimsin.id))
 
 
 @module.route("/<gimsin_id>")
 def view(gimsin_id):
-    return render_template("/gimsins/index.html")
+    gimsin = models.GimSin.objects.get(id=gimsin_id, status="active")
+    if not gimsin:
+        return redirect(url_for("gimsins.index"))
+
+    return render_template("/gimsins/view.html", gimsin=gimsin)

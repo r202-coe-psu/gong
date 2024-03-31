@@ -28,7 +28,6 @@ def create_or_edit(shrine_id):
         form = forms.shrines.ShrineForm(obj=shrine)
 
     if not form.validate_on_submit():
-        print(form.__dict__)
         return render_template("/shrines/create-or-edit.html", form=form)
 
     if not shrine:
@@ -37,9 +36,13 @@ def create_or_edit(shrine_id):
     form.populate_obj(shrine)
     shrine.save()
 
-    return redirect(url_for("shrines.index"))
+    return redirect(url_for("shrines.view", shrine_id=shrine.id))
 
 
 @module.route("/<shrine_id>")
 def view(shrine_id):
-    return render_template("/shrines/index.html")
+    shrine = models.Shrine.objects.get(id=shrine_id, status="active")
+    if not shrine:
+        return redirect(url_for("shrines.index"))
+
+    return render_template("/shrines/view.html", shrine=shrine)

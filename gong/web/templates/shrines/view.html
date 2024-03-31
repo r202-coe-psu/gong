@@ -1,0 +1,29 @@
+{% extends '/shrines/index.html' %}
+{% import '/base/galleries.html' as galleries %}
+
+
+{% block dashboard_title %}Shrine{% endblock %}
+
+{% block breadcrumbs %}
+  {{ super() }}
+  {% if request.endpoint == 'shrines.view' %}
+    <div class="active section">Shrine</div>
+  {% else %}
+    <a class="section" href="{{ url_for('shrines.index') }}">Shrine</a>
+    <div class="divider"> / </div>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="ui segment">
+    <a class="ui icon primary button" href="{{ url_for('shrines.index') }}"><i class="ui yin yang icon"></i> Gong</a>
+    <a class="ui icon primary button" href="{{ url_for('shrines.create_or_edit') }}"><i class="edit icon"></i> Edit</a>
+    <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='shrine', type_id=shrine.id) }}"><i class="image icon"></i> Edit</a>
+  </div>
+  <div class="ui segment">
+    <h1>{{ shrine.name }}</h1>
+    <div>
+      {{ galleries.render_cards(shrine) }}
+    </div>
+  </div>
+{% endblock %}

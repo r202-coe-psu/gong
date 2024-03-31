@@ -1,81 +1,61 @@
 {% extends '/base/default-dashboard.html' %}
 
-{% block dashboard_title %}Gong{% endblock %}
+{% block dashboard_title %}GimSin{% endblock %}
 
 {% block breadcrumbs %}
-  {% if request.endpoint == 'gongs.index' %}
-    <div class="active section">Gong</div>
+  {% if request.endpoint == 'gimsins.index' %}
+    <div class="active section">GimSin</div>
   {% else %}
-    <a class="section" href="{{ url_for('gongs.index') }}">Gong</a>
+    <a class="section" href="{{ url_for('gimsins.index') }}">GimSin</a>
     <div class="divider"> / </div>
   {% endif %}
 {% endblock %}
 
 {% block content %}
-  <div>
-    <a class="ui icon primary button" href="{{ url_for('gongs.create_or_edit') }}"><i class="ui add icon"></i> Create</a>
+  <div class="ui segment">
+    <a class="ui icon primary button" href="{{ url_for('gimsins.create_or_edit') }}"><i class="ui add icon"></i> Create</a>
   </div>
-<div class="ui grid">
-  <div class="ui cards">
-    {% for gong in gongs %}
-      <div class="card">
-        <div class="content">
-          {% set gong_state = gong_states[gong.id] %}
-          <div class="header">
-
-            {% if 'closed' == gong_state %}
-              <i class="gong closed icon green"></i>
-            {% elif 'opened' == gong_state %}
-              <i class="gong open icon red"></i>
-            {% else %}  
-              <i class="gong closed icon"></i>
+  <div class="padding-top: 1">
+    <div class="ui cards">
+      {% for gimsin in gimsins %}
+        <div class="card">
+          <div class="image">
+            {% if gimsin.has_cover_image() %}
+              {% set picture = gimsin.get_cover_image() %}
+              <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) }}">
+            {% else %}
+              <div class="ui placeholder">
+                <div class="rectangular image"></div>
+              </div>
             {% endif %}
-            {{ gong.name | upper }}
           </div>
 
-          <div class="meta">
-            {{ gong.device_type | title }} | {{ gong_states[gong.id] }}
+          <div class="content">
+            <div class="header">
+              {{ gimsin.name }}
+            </div>
+            <div class="meta">
+              {% for tag in gimsin.tags %}
+                <a href="{{ url_for('tags.view', tag=tag) }}">{{ tag }}</a>
+              {% endfor %}
+            </div>
+            <div class="description">
+              {{ gimsin.biography }}
+            </div>
           </div>
-
-          {% if 'admin' in current_user.roles %}
-          <div style="position: absolute; right: 0;">
-          {#
-          <a href="{{url_for('administration.gong_authorizations.index', group_id=gong_group.id)}}"><i class="circular inverted green eye icon"></i></a>
-          #}
-          
-          <a href="{{ url_for('administration.history_logs.gong_logs', gong_id=gong.id) }}"><i class="circular inverted blue history icon"></i></a>
-          
+          <div class="extra content">
+            <a href="{{ url_for('gimsins.view', gimsin_id=gimsin.id) }}" class="ui primary icon button">
+              <i class="eye icon"></i>
+            </a>
+            <a href="{{ url_for('gimsins.create_or_edit', gimsin_id=gimsin.id) }}" class="ui primary icon button">
+              <i class="edit icon"></i>
+            </a>
+            <a href="{{ url_for('pictures.manage', type_="gimsin", type_id=gimsin.id) }}" class="ui primary icon button">
+              <i class="image icon"></i>
+            </a>
           </div>
-          {% endif %}
-        {#
-        <!-- <div class="description">-->
-        <!--   Elliot requested permission to view your contact details-->
-        <!-- </div>-->
-        #}
         </div>
-        <div class="extra content">
-          {% if gong.have_passcode %}
-            <div>
-              Passcode: {{ current_user.passcode }}
-              {#% if user_group[gong_group.id].is_supervisor(current_user) %}
-              <a href="{{url_for('administration.gongs.revoke_passcode', gong_id=gong.id)}}"><i class="redo icon"></i></a>
-              {% endif %#}
-            </div>
-          {% endif %}
-
-          {% if not gong.is_web_open %}
-            <div class="opengong ui two buttons">
-              <div id="{{ gong.id }}" class="ui basic disabled button">Opening via Web was disabled</div>
-            </div>
-          {% else%}
-            <div class="opengong ui two buttons">
-              <div id="{{ gong.id }}" class="ui green button">Open</div>
-            </div>
-          {% endif %}
-        </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
-</div>
-
 {% endblock %}

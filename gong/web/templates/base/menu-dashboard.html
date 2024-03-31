@@ -9,9 +9,10 @@
   <a href="{{ url_for('accounts.index') }}"><span class="white-text email">{{ current_user.email }}</span></a>
 </div>
 
+<a class="item" href="{{ url_for('site.index') }}"><i class="icon home"></i>Home</a>
 <a class="item" href="{{ url_for('dashboard.index') }}"><i class="icon dashboard"></i>Dashboard</a>
 <a class="item" href="{{ url_for('gongs.index') }}"><i class="icon yin yang"></i>Gong</a>
-<a class="item" href="{{ url_for('gimsins.index') }}"><i class="icon street view"></i>Gim Sin</a>
+<a class="item" href="{{ url_for('gimsins.index') }}"><i class="icon user tag"></i>Gim Sin</a>
 <a class="item" href="{{ url_for('shrines.index') }}"><i class="icon torii gate"></i>Shrine</a>
 <a class="item" href="{{ url_for('pictures.index') }}"><i class="icon picture"></i>Pictures</a>
 

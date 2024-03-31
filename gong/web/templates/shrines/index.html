@@ -35,17 +35,22 @@
               {{ shrine.name }}
             </div>
             <div class="meta">
-              {{ shrine.tags }}
+              {% for tag in shrine.tags %}
+                <a href="{{ url_for('tags.view', tag=tag) }}">{{ tag }}</a>
+              {% endfor %}
             </div>
             <div class="description">
               {{ shrine.biography }}
             </div>
           </div>
           <div class="extra content">
-            <a href="{{ url_for('shrines.create_or_edit', shrine_id=shrine.id) }}">
+            <a href="{{ url_for('shrines.view', shrine_id=shrine.id) }}" class="ui primary icon button">
+              <i class="eye icon"></i>
+            </a>
+            <a href="{{ url_for('shrines.create_or_edit', shrine_id=shrine.id) }}" class="ui primary icon button">
               <i class="edit icon"></i>
             </a>
-            <a href="{{ url_for('pictures.manage', type_="shrine", type_id=shrine.id) }}">
+            <a href="{{ url_for('pictures.manage', type_="shrine", type_id=shrine.id) }}" class="ui primary icon button">
               <i class="image icon"></i>
             </a>
           </div>
