@@ -39,7 +39,7 @@ RUN cd /app/gong/web/static/brython; \
     for i in $(ls -d */); \
     do \
     cd $i; \
-    python3 -m brython --make_package ${i%%/}; \
+    . /venv/bin/activate && python3 -m brython --make_package ${i%%/}; \
     mv *.brython.js ..; \
     cd ..; \
     done
