@@ -22,7 +22,7 @@ class GimSin(me.Document):
         required=True, default=datetime.datetime.now, auto_now=True
     )
 
-    coordinate = me.PointField(auto_index=False)
+    coordinates = me.PointField(auto_index=False, default=[0, 0])
 
     status = me.StringField(default="active")
 

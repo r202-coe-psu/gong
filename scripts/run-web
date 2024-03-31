@@ -1,3 +1,14 @@
 #!/bin/sh
+
+BRYTHON_ID=$(pgrep -f $(pwd)/scripts/auto-build-brython);
+
+if [ ! -z "$BRYTHON_ID" ]
+then
+	echo "brython allready run kill!!"
+	kill -KILL $BRYTHON_ID
+fi
+
 $(pwd)/scripts/auto-build-brython &
+
 GONG_SETTINGS=$(pwd)/.env DEBUG=1 gong-web -H 0.0.0.0 -d
+

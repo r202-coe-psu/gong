@@ -25,7 +25,7 @@ def create_or_edit(gimsin_id):
     form = forms.gimsins.GimSinForm()
     if gimsin_id:
         gimsin = models.GimSin.objects.get(id=gimsin_id)
-        form = forms.gimsins.GongForm(obj=gimsin)
+        form = forms.gimsins.GimSinForm(obj=gimsin)
 
     if not form.validate_on_submit():
         print(form.errors)

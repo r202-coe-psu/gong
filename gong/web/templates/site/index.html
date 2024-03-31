@@ -4,7 +4,7 @@
 
   <div class="ui segment two columns grid">
     <div class="column">
-      <div id="mapid" style="z-index:1;height:30rem;width:100%;"></div>
+      <div id="mapid" style="z-index:1; min-height:45rem; height:100%; width:100%;"></div>
     </div>
     <div class="column">
       <h1>Gong</h1>
@@ -51,6 +51,9 @@
 {% endblock content %}
 
 {% block additional_js %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/leaflet/dist/leaflet.css') }}" />
+  <script src="{{ url_for('static', filename='node_modules/leaflet/dist/leaflet.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/leaflet.smoothwheelzoom.js')}}"></script>
 
   <script src="{{ url_for('static', filename='node_modules/brython/brython.js') | add_date_url}}"></script>
   <script src="{{ url_for('static', filename='node_modules/brython/brython_stdlib.js') | add_date_url}}"></script>
