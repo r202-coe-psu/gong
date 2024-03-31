@@ -9,7 +9,7 @@ RUN apt install -y python3 python3-dev python3-pip python3-venv npm git locales
 # ENV LC_ALL th_TH.UTF-8
 
 
-ENV KONG_SETTINGS=.env
+ENV KONG_SETTINGS=/app/.env
 
 RUN python3 -m venv /venv
 ENV PYTHON=/venv/bin/python3
@@ -35,11 +35,11 @@ COPY . /app
 # RUN poetry config virtualenvs.create false && poetry install --no-interaction
 
 # For brython
-# RUN cd /app/gong/web/static/brython; \
-#     for i in $(ls -d */); \
-#     do \
-#     cd $i; \
-#     python3 -m brython --make_package ${i%%/}; \
-#     mv *.brython.js ..; \
-#     cd ..; \
-#     done
+RUN cd /app/gong/web/static/brython; \
+    for i in $(ls -d */); \
+    do \
+    cd $i; \
+    python3 -m brython --make_package ${i%%/}; \
+    mv *.brython.js ..; \
+    cd ..; \
+    done
