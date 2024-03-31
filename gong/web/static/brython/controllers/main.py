@@ -1,24 +1,19 @@
-import datetime
+# import datetime
+
 from browser import ajax, document, html, window, timer, aio
+
 import javascript as js
+
 from maps import MainMap
-from gongs import Gong
+
+# from gongs import Gong
 
 
 class MainController:
     def __init__(self, lang_code):
         self.lang_code = lang_code
-        self.acquisition_interval = 60 * 60
 
-        self.running = False
-
-        self.started_datetime = ""
-        self.ended_datetime = ""
-
-        self.get_token_url = f"/{lang_code}/get_token"
-        self.get_system_setting_url = f"{api_url}/v1/system_settings"
-        self.get_station_latest_climate_url = f"{api_url}/v1/gongs/climates/latest"
-        self.get_latest_hotspot_url = f"{api_url}/v1/hotspots/latest"
+        # self.get_token_url = f"/{lang_code}/get_token"
 
         self.gongs = dict()
         self.map = None
@@ -33,42 +28,43 @@ class MainController:
     #     gongs = js.JSON.parse(response.data)
     #     return gongs
 
-    # async def monitor(self):
-    #     pass
-    #     # await self.setup()
+    async def run(self):
+        await self.setup()
 
-    #     # while self.running:
-    #     #     print(f"monitor: wake up {datetime.datetime.now()}")
+        # while self.running:
+        #     print(f"monitor: wake up {datetime.datetime.now()}")
 
-    #     #     source = "air4thai"
-    #     #     params = dict(source=source)
-    #     #     gongs = await self.get_api_data(
-    #     #         self.get_station_latest_climate_url, params
-    #     #     )
-    #     #     await self.map.update(source, gongs)
+        #     source = "air4thai"
+        #     params = dict(source=source)
+        #     gongs = await self.get_api_data(
+        #         self.get_station_latest_climate_url, params
+        #     )
+        #     await self.map.update(source, gongs)
 
-    #     #     print(f"monitor: sleep {self.acquisition_interval}s")
-    #     #     # wait for next aquisition
-    #     #     await aio.sleep(self.acquisition_interval)
+        #     print(f"monitor: sleep {self.acquisition_interval}s")
+        #     # wait for next aquisition
+        #     await aio.sleep(self.acquisition_interval)
 
-    #     # return data
+        # return data
 
-    # async def setup(self):
-    #     response = await aio.get(self.get_token_url)
-    #     response = js.JSON.parse(response.data)
-    #     self.token = response["access_token"]
+    async def setup(self):
+        # response = await aio.get(self.get_token_url)
+        # response = js.JSON.parse(response.data)
+        # self.token = response["access_token"]
 
-    #     headers = {"Authorization": f"Bearer {self.token}"}
-    #     response = await aio.get(self.get_system_setting_url, headers=headers)
-    #     self.system_setting = js.JSON.parse(response.data)
+        # headers = {"Authorization": f"Bearer {self.token}"}
+        # response = await aio.get(self.get_system_setting_url, headers=headers)
+        # self.system_setting = js.JSON.parse(response.data)
 
-    #     center = self.system_setting["center"]["coordinates"]
-    #     zoom = self.system_setting["zoom"]
-    #     min_zoom = self.system_setting["min_zoom"]
+        # center = self.system_setting["center"]["coordinates"]
+        # zoom = self.system_setting["zoom"]
+        # min_zoom = self.system_setting["min_zoom"]
 
-    #     self.map = MainMap([center[1], center[0]], zoom, min_zoom, self.lang_code)
+        zoom = 10
+        min_zoom = 10
+        self.map = MainMap([100, 7], zoom, min_zoom, self.lang_code)
 
-    #     await self.map.render()
+        await self.map.render()
 
     # def get_sensor_on_complete(self, req, document_id):
     #     summary_data = js.JSON.parse(req.text)
@@ -168,22 +164,7 @@ class MainController:
     #         get_hotspots_url = f"{self.get_hotspots_url}/?started_datetime={self.started_datetime}&ended_datetime={self.ended_datetime}&satellite=modis"
     #         self.get_sensor_data(get_hotspots_url, params, "modis_hotspots")
 
-    # def start(self):
+    def start(self):
+        print(">>")
 
-    #     # print("start")
-    #     # self.running = True
-
-    #     # if "air4thai" in document:
-    #     #     document["air4thai"].bind("click", self.on_filter_clicked)
-    #     # if "airport" in document:
-    #     #     document["airport"].bind("click", self.on_filter_clicked)
-    #     # if "dust_interpolation" in document:
-    #     #     document["dust_interpolation"].bind("click", self.on_interpolation_clicked)
-    #     # if "viir_hotspots" in document:
-    #     #     document["viir_hotspots"].bind("click", self.on_filter_clicked)
-    #     # if "modis_hotspots" in document:
-    #     #     document["modis_hotspots"].bind("click", self.on_filter_clicked)
-    #     # if "search_data" in document:
-    #     #     document["search_data"].bind("click", self.on_search_clicked)
-
-    #     aio.run(self.monitor())
+        aio.run(self.run())
