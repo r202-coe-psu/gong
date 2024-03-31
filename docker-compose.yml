@@ -31,14 +31,14 @@ services:
             - ../deployment:/deployment
             - /etc/localtime:/etc/localtime:ro
         ports:
-            - 9000:9000
+            - 10080:9000
         links:
             - mongodb
         networks:
             - default
         restart: always
         environment:
-            KONG_SETTINGS: /app/gong-production.cfg
+            KONG_SETTINGS: /app/.env
         command:
           /venv/bin/gunicorn -w 2 --bind 0.0.0.0:9000 "gong.web:create_app()"
         logging:
