@@ -1,4 +1,5 @@
 {% extends "/base/default-page.html" %}
+{% import '/base/name-utils.html' as name_utils %}
 
 {% block content %}
 
@@ -11,7 +12,7 @@
       <div class="ui link cards">
         {% for gong in gongs %}
           <div class="card">
-            <div class="image">
+            <a class="image" href="{{ url_for('gongs.view', gong_id=gong.id) }}">
               {% if gong.has_cover_image() %}
                 {% set picture = gong.get_cover_image() %}
                 <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) }}">
@@ -20,9 +21,9 @@
                   <div class="rectangular image"></div>
                 </div>
               {% endif %}
-            </div>
+            </a>
             <div class="content">
-              <div class="header">{{ gong.name }} | {{ gong.name_zh }}</div>
+              <div class="header">{{ name_utils.get_object_name(gong) }}</div>
               <div class="meta">
                 {% for tag in gong.tags %}
                   <a href="{{ url_for('tags.view', tag=tag)  }}">{{ tag }}</a>

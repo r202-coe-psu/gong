@@ -1,4 +1,11 @@
-{% extends '/base/default-dashboard.html' %}
+
+{% if current_user.is_authenticated %}
+  {% extends '/base/default-dashboard.html' %}
+{% else %}
+  {% extends '/base/default-page.html' %}
+{% endif %}
+
+{% import '/base/name-utils.html' as name_utils %}
 
 {% block dashboard_title %}Shrine{% endblock %}
 
@@ -12,10 +19,12 @@
 {% endblock %}
 
 {% block content %}
+  {% if current_user.is_authenticated %}
   <div class="ui segment">
     <a class="ui icon primary button" href="{{ url_for('shrines.create_or_edit') }}"><i class="ui add icon"></i> Create</a>
   </div>
-  <div class="padding-top: 1">
+  {% endif %}
+  <div class="ui segment">
     <div class="ui cards">
       {% for shrine in shrines %}
         <div class="card">
@@ -32,7 +41,7 @@
 
           <div class="content">
             <div class="header">
-              {{ shrine.name }}
+              {{ name_utils.get_object_name(shrine) }}
             </div>
             <div class="meta">
               {% for tag in shrine.tags %}
@@ -43,6 +52,7 @@
               {{ shrine.biography }}
             </div>
           </div>
+          {% if current_user.is_authenticated %}
           <div class="extra content">
             <a href="{{ url_for('shrines.view', shrine_id=shrine.id) }}" class="ui primary icon button">
               <i class="eye icon"></i>
@@ -54,6 +64,7 @@
               <i class="image icon"></i>
             </a>
           </div>
+        {% endif %}
         </div>
       {% endfor %}
     </div>

@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 
 from gong import models
 from .. import forms
+import mongoengine as me
 
 import datetime
 
@@ -10,7 +11,6 @@ module = Blueprint("gongs", __name__, url_prefix="/gongs")
 
 
 @module.route("")
-@login_required
 def index():
     gongs = models.gongs.Gong.objects()
     return render_template("/gongs/index.html", gongs=gongs)
@@ -37,6 +37,18 @@ def create_or_edit(gong_id):
     gong.save()
 
     return redirect(url_for("gongs.view", gong_id=gong.id))
+
+
+@module.route("/clans/<clan>")
+def show_by_clan(clan):
+    gongs = models.Gong.objects(
+        (me.Q(clan=clan) | me.Q(clan_zh=clan) | me.Q(clan_en=clan)),
+        status="active",
+    )
+    if not gongs:
+        return redirect(url_for("gongs.index"))
+
+    return render_template("/gongs/index.html", gongs=gongs)
 
 
 @module.route("/<gong_id>")

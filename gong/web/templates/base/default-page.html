@@ -6,12 +6,12 @@
   {% if request.path == '/' %}
     {% include "/base/banner.html" %}
   {% else %}
-    <div style="padding-top:50px;"></div>
+    <div style="padding-top:1rem;"></div>
   {% endif %}
 {% endblock %}
 </header>
 
-<main style="min-height: 20vh;">
+<main style="min-height: 30vh;">
   <div class="container">
     {% block content %}{% endblock content %}
   </div>

@@ -10,7 +10,6 @@ module = Blueprint("gimsins", __name__, url_prefix="/gimsins")
 
 
 @module.route("")
-@login_required
 def index():
     gimsins = models.GimSin.objects()
     return render_template("/gimsins/index.html", gimsins=gimsins)

@@ -1,5 +1,7 @@
 {% extends '/gongs/index.html' %}
+
 {% import '/base/galleries.html' as galleries %}
+{% import '/base/name-utils.html' as name_utils %}
 
 {% block dashboard_title %}Gong{% endblock %}
 
@@ -13,13 +15,16 @@
 {% endblock %}
 
 {% block content %}
+  {% if current_user.is_authenticated %}
   <div class="ui segment">
     <a class="ui icon primary button" href="{{ url_for('gongs.index') }}"><i class="ui yin yang icon"></i> Gong</a>
     <a class="ui icon primary button" href="{{ url_for('gongs.create_or_edit') }}"><i class="edit icon"></i> Edit</a>
     <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='gong', type_id=gong.id) }}"><i class="image icon"></i> Edit</a>
   </div>
+  {% endif %}
+
   <div class="ui segment">
-    <h1>{{ gong.name }}</h1>
+    <h1>{{ name_utils.get_object_name(gong) }}</h1>
 
     <div>
       {{ galleries.render_cards(gong) }}

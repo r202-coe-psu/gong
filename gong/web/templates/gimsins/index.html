@@ -1,4 +1,10 @@
-{% extends '/base/default-dashboard.html' %}
+{% if current_user.is_authenticated %}
+  {% extends '/base/default-dashboard.html' %}
+{% else %}
+  {% extends '/base/default-page.html' %}
+{% endif %}
+
+{% import '/base/name-utils.html' as name_utils %}
 
 {% block dashboard_title %}GimSin{% endblock %}
 
@@ -12,10 +18,13 @@
 {% endblock %}
 
 {% block content %}
+  {% if current_user.is_authenticated %}
   <div class="ui segment">
     <a class="ui icon primary button" href="{{ url_for('gimsins.create_or_edit') }}"><i class="ui add icon"></i> Create</a>
   </div>
-  <div class="padding-top: 1">
+  {% endif %}
+
+  <div class="ui segment">
     <div class="ui cards">
       {% for gimsin in gimsins %}
         <div class="card">
@@ -32,7 +41,7 @@
 
           <div class="content">
             <div class="header">
-              {{ gimsin.name }}
+              {{ name_utils.get_object_name(gimsin) }}
             </div>
             <div class="meta">
               {% for tag in gimsin.tags %}
@@ -43,6 +52,7 @@
               {{ gimsin.biography }}
             </div>
           </div>
+          {% if current_user.is_authenticated %}
           <div class="extra content">
             <a href="{{ url_for('gimsins.view', gimsin_id=gimsin.id) }}" class="ui primary icon button">
               <i class="eye icon"></i>
@@ -54,6 +64,7 @@
               <i class="image icon"></i>
             </a>
           </div>
+        {% endif %}
         </div>
       {% endfor %}
     </div>

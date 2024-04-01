@@ -46,6 +46,14 @@ class MainMap(Map):
         url = self.gimsin_view_url.format(gimsin_id=gimsin_id)
         window.open(url)
 
+    async def get_obj_name(self, obj):
+        name = obj["name"]
+        for key in ["name_zh", "name_en"]:
+            if obj[key]:
+                name = f"{name} | {obj[key]}"
+
+        return name
+
     async def update_gimsin_markers(self, gimsins):
 
         markers = []
@@ -53,13 +61,22 @@ class MainMap(Map):
         for gimsin in gimsins:
             image_html = ""
             if gimsin["cover_image_url"]:
-                image_html = f"""<img class="ui medium image" src="{ gimsin['cover_image_url'] }">"""
+                image_html = f"""<img class="ui medium image" src="{ gimsin['cover_image_url'] }" style="max-height:150px;overflow: hidden;">"""
+
+            gimsin_name = await self.get_obj_name(gimsin)
+            shrine_name = await self.get_obj_name(gimsin["shrine"])
+            gong_name = await self.get_obj_name(gimsin["gong"])
 
             tooltip_detail = f"""
-                <div style="width:200px;">
-                   <h3>{ gimsin['name'] }</h3>
+                <div style="width:250px;">
+                   <h3>{ gimsin_name }</h3>
                    <div>
                         { image_html }
+                        <div class="ui divider"></div>
+                        <div class="ui large text">
+                            <i class="torii gate icon"></i> {gong_name} <br/>
+                            <i class="yin yang icon"></i> {shrine_name} <br/>
+                        <div>
                    </div>
                 </div>
                 """

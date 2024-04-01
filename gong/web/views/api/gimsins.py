@@ -34,8 +34,18 @@ def index():
             name=gimsin.name,
             name_zh=gimsin.name_zh,
             name_en=gimsin.name_en,
-            gong=gimsin.gong.id,
-            shrine=gimsin.shrine.id,
+            gong=dict(
+                id=gimsin.gong.id,
+                name=gimsin.gong.name,
+                name_zh=gimsin.gong.name_zh,
+                name_en=gimsin.gong.name_en,
+            ),
+            shrine=dict(
+                id=gimsin.shrine.id,
+                name=gimsin.shrine.name,
+                name_zh=gimsin.shrine.name_zh,
+                name_en=gimsin.shrine.name_en,
+            ),
             coordinates=gimsin.coordinates,
             cover_image_url=url,
         )
