@@ -30,8 +30,10 @@
       {{ renderer.render_field(form.place_of_birth_en) }}
       </div>
 
-      {{ renderer.render_field(form.avatar) }}
+      <div class="two fields">
+      {{ renderer.render_select(form.avatar) }}
       {{ renderer.render_field(form.blessings) }}
+      </div>
       {{ renderer.render_field(form.biography) }}
       {{ renderer.render_field(form.tags) }}
       {{ renderer.render_field(form.links) }}

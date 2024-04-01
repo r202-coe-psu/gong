@@ -12,7 +12,7 @@ module = Blueprint("pictures", __name__, url_prefix="/pictures")
 @module.route("")
 @login_required
 def index():
-    pictures = models.pictures.Gong.objects()
+    pictures = models.BasePicture.objects()
     return render_template("/pictures/index.html", pictures=pictures)
 
 

@@ -6,8 +6,8 @@ class GimSin(me.Document):
     meta = {"collection": "gimsins"}
 
     name = me.StringField(min_length=1, max_length=256)
-    name_zh = me.StringField(min_length=1, max_length=256)
-    name_en = me.StringField(min_length=1, max_length=256)
+    name_zh = me.StringField(max_length=256)
+    name_en = me.StringField(max_length=256)
 
     biography = me.StringField()
 
