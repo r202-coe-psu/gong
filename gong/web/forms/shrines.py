@@ -13,15 +13,15 @@ BaseShrineForm = model_form(
     models.Shrine,
     FlaskForm,
     exclude=["created_date", "updated_date", "creator", "status"],
-    field_args={
-        "name": {"label": "Name"},
-        "name_zh": {"label": "Chinese Name"},
-        "name_en": {"label": "English Name"},
-        "opened_date": {"label": "Opened Date", "validators": [validators.Optional()]},
-        "biography": {"label": "Biograpy"},
-        "presidents": {"label": "Presidents"},
-        "coordinates": {"label": "Coordinates"},
-    },
+    field_args=dict(
+        name=dict(label="Name"),
+        name_zh=dict(label="Chinese Name"),
+        name_en=dict(label="English Name"),
+        opened_date=dict(label="Opened Date", validators=[validators.Optional()]),
+        biography=dict(label="Biograpy"),
+        presidents=dict(label="Presidents"),
+        coordinates=dict(label="Coordinates"),
+    ),
 )
 
 

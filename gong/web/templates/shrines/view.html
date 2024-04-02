@@ -1,7 +1,8 @@
 {% extends '/shrines/index.html' %}
 {% import '/base/galleries.html' as galleries %}
+{% import '/base/name-utils.html' as name_utils %}
 
-
+{% block title %}{{ name_utils.get_object_name(shrine) }}{% endblock %}
 {% block dashboard_title %}Shrine{% endblock %}
 
 {% block breadcrumbs %}
@@ -24,8 +25,73 @@
   {% endif %}
 
   <div class="ui segment">
-    <h1>{{ shrine.name }}</h1>
+    <div class="ui red message">
+      <h1 class="ui center aligned icon header">
+        <i class="circular users icon"></i>
+        <div class="content">
+          {{ name_utils.get_object_name(shrine) }}
+        </div>
+      </h1>
+      <div class="ui divider"></div>
+
+      <div class="ui centered cards">
+        {% for gimsin in shrine.presidents %}
+          <div class="card">
+            <div class="image">
+              {% if gimsin.has_cover_image() %}
+                {% set picture = gimsin.get_cover_image() %}
+                <img src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) }}">
+              {% else %}
+
+              {% endif %}
+            </div>
+            <div class="content">
+              <a class="header" href="{{ url_for('gongs.view', gong_id=gimsin.gong.id) }}">{{ gimsin.name }}</a>
+              <div class="ui large label">
+                <i class="yin yang icon"></i><a href="{{ url_for('gongs.view', gong_id=gimsin.gong.id) }}">{{ gimsin.gong.name }}</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
     <div>
+      <h2 class="ui dividing header"> กิ้มซิ้น </h2>
+      <div class="ui centered cards">
+        {% for gimsin in shrine.get_gimsins() %}
+          <div class="card">
+            <div class="image">
+              {% if gimsin.has_cover_image() %}
+                {% set picture = gimsin.get_cover_image() %}
+                <img src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) }}">
+              {% else %}
+
+              {% endif %}
+            </div>
+            <div class="content">
+              <a class="header" href="{{ url_for('gongs.view', gong_id=gimsin.gong.id) }}">{{ gimsin.name }}</a>
+              <div class="ui large label">
+                <i class="yin yang icon"></i><a href="{{ url_for('gongs.view', gong_id=gimsin.gong.id) }}">{{ gimsin.gong.name }}</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+
+    {% if shrine.biography %}
+      <div>
+        <h2 class="ui dividing header">ประวัติ</h2>
+        <div>
+          {{ shrine.biography }}
+        </div>
+      </div>
+    {% endif %}
+
+    <div>
+      <div class="ui divider"></div>
       {{ galleries.render_cards(shrine) }}
     </div>
   </div>

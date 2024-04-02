@@ -18,41 +18,49 @@
 {% block content %}
   {% if current_user.is_authenticated %}
   <div class="ui segment">
-    <a class="ui icon primary button" href="{{ url_for('gimsins.index') }}"><i class="ui yin yang icon"></i> Gong</a>
+    <a class="ui icon primary button" href="{{ url_for('gimsins.index') }}"><i class="ui user tag icon"></i> GimSin</a>
     <a class="ui icon primary button" href="{{ url_for('gimsins.create_or_edit') }}"><i class="edit icon"></i> Edit</a>
     <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='gimsin', type_id=gimsin.id) }}"><i class="image icon"></i> Edit</a>
   </div>
  {% endif %}
 
   <div class="ui segment huge">
-    <h1>{{ name_utils.get_object_name(gimsin) }}</h1>
+    <h1 class="ui center aligned header red">{{ name_utils.get_object_name(gimsin) }}</h1>
 
-    <div class="ui placeholder segment">
-      <div class="ui two column stackable center aligned grid">
-        <div class="ui vertical divider"><i class="broadcast tower icon large"></i></div>
-        <div class="middle aligned row">
-          <div class="column">
-            <div class="ui icon header">
-              <i class="users icon red"></i>
-              {% for clan in [gimsin.gong.clan, gimsin.gong.clan_zh, gimsin.gong.clan_en] %}
-                {% if clan %}
-                  <a href="{{ url_for('gongs.show_by_clan', clan=clan) }}" class="ui label red circular massive">{{ clan }}</a>
-                {% endif %}
-              {% endfor %}
+    <div class="ui divider"></div>
+    <div class="ui basic horizontal massive segments">
+      {% if gimsin.has_cover_image() %}
+        <div class="ui center aligned pedded segment">
+          {% set picture = gimsin.get_cover_image() %}
+          <img class="ui medium centered image" src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) }}">
+        </div>
+      {% endif %}
 
-            </div>
-            <div>
-            </div>
-          </div>
-          <div class="column">
-            <div class="ui icon header">
-              <i class="torii gate icon"></i>
-              <a href="{{ url_for('gimsins.view', gimsin_id=gimsin.id) }}">{{ gimsin.shrine.name }}</a>
-            </div>
-          </div>
+      <div class="ui center aligned segment">
+        <div class="ui icon header">
+          <i class="yin yang icon red"></i>
+          
+            <a href="{{ url_for('gongs.view', gong_id=gimsin.gong.id) }}" class="ui label red circular massive">{{ gimsin.gong.name }}</a>
+        </div>
+      </div>
+      <div class="ui center aligned segment">
+        <div class="ui icon header">
+          <i class="users icon red"></i>
+          {% for clan in [gimsin.gong.clan, gimsin.gong.clan_zh, gimsin.gong.clan_en] %}
+            {% if clan %}
+              <a href="{{ url_for('gongs.show_by_clan', clan=clan) }}" class="ui label red circular massive">{{ clan }}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="ui center aligned segment">
+        <div class="ui icon header">
+          <i class="torii gate icon"></i>
+          <a href="{{ url_for('shrines.view', shrine_id=gimsin.shrine.id) }}">{{ gimsin.shrine.name }}</a>
         </div>
       </div>
     </div>
+    <div class="ui divider"></div>
 
     {% if gimsin.biography %}
     <div class="ui message">

@@ -61,21 +61,22 @@ class MainMap(Map):
         for gimsin in gimsins:
             image_html = ""
             if gimsin["cover_image_url"]:
-                image_html = f"""<img class="ui medium image" src="{ gimsin['cover_image_url'] }" style="max-height:150px;overflow: hidden;">"""
+                image_html = f"""
+                <img class="ui medium image" src="{ gimsin['cover_image_url'] }" style="max-height: 300px; overflow: hidden; object-fit: cover;">
+                """
 
             gimsin_name = await self.get_obj_name(gimsin)
             shrine_name = await self.get_obj_name(gimsin["shrine"])
             gong_name = await self.get_obj_name(gimsin["gong"])
 
             tooltip_detail = f"""
-                <div style="width:250px;">
+                <div style="width:300px;">
                    <h3>{ gimsin_name }</h3>
                    <div>
                         { image_html }
-                        <div class="ui divider"></div>
-                        <div class="ui large text">
-                            <i class="torii gate icon"></i> {gong_name} <br/>
-                            <i class="yin yang icon"></i> {shrine_name} <br/>
+                        <div class="ui message big text">
+                            <i class="yin yang icon"></i> {gong_name} <br/>
+                            <i class="torii gate icon"></i> {shrine_name} <br/>
                         <div>
                    </div>
                 </div>

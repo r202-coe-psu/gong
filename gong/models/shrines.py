@@ -27,6 +27,8 @@ class Shrine(me.Document):
 
     status = me.StringField(default="active")
 
+    presidents_label_modifier = lambda gimsin: gimsin.name
+
     def has_cover_image(self):
         from . import pictures
 
@@ -45,3 +47,8 @@ class Shrine(me.Document):
         from . import pictures
 
         return pictures.ShrinePicture.objects(shrine=self)
+
+    def get_gimsins(self):
+        from . import gimsins
+
+        return gimsins.GimSin.objects(shrine=self)
