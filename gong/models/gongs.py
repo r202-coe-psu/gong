@@ -61,3 +61,10 @@ class Gong(me.Document):
         from . import pictures
 
         return pictures.GongPicture.objects(gong=self)
+
+    def get_shrines(self):
+        from . import gimsins
+
+        shrines = gimsins.GimSin.objects(gong=self).distinct("shrine")
+
+        return shrines
