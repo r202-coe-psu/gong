@@ -4,6 +4,7 @@
 {% import '/base/name-utils.html' as name_utils %}
 
 {% block dashboard_title %}Gong{% endblock %}
+{% block title %}{{ name_utils.get_object_name(gong) }}{% endblock %}
 
 {% block breadcrumbs %}
   {% if request.endpoint == 'gongs.index' %}
@@ -45,16 +46,31 @@
           {% endfor %}
         </div>
       </div>
-
+      {% if gong.avatar %}
+        <div class="ui center aligned segment">
+          <div class="ui icon header">
+            <i class="yin yang icon red"></i>
+            <a href="{{ url_for('gongs.view', gong_id=gong.id) }}" class="ui label red circular massive">{{ gong.avatar.name }}</a>
+          </div>
+        </div>
+      {% endif %}
     </div>
     <div class="ui divider"></div>
 
 
-    {% if gong.biography %}
     <div class="ui message">
-      {{ gong.biography }}
+      <div>
+        <i class="th flag"></i> {{ gong.alternative_names | join(', ') }} <br>
+        <i class="cn flag"></i> {{ gong.alternative_names_zh | join(', ') }} <br>
+        <i class="uk flag"></i> {{ gong.alternative_names_en | join(', ') }} <br>
+      </div>
+      {% if gong.biography %}
+        <div class="ui divider"></div>
+        <div style="pedding-top:1rem;">
+          {{ gong.biography }}
+        </div>
+      {% endif %}
     </div>
-    {% endif %}
 
     <div>
       {{ galleries.render_cards(gong) }}

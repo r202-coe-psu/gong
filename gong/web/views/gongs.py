@@ -51,6 +51,18 @@ def show_by_clan(clan):
     return render_template("/gongs/index.html", gongs=gongs)
 
 
+@module.route("/blessings/<blessing>")
+def show_by_blessing(blessing):
+    gongs = models.Gong.objects(
+        blessings=blessing,
+        status="active",
+    )
+    if not gongs:
+        return redirect(url_for("gongs.index"))
+
+    return render_template("/gongs/index.html", gongs=gongs)
+
+
 @module.route("/<gong_id>")
 def view(gong_id):
     gong = models.Gong.objects.get(id=gong_id, status="active")

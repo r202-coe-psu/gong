@@ -23,14 +23,18 @@
               {% endif %}
             </a>
             <div class="content">
-              <div class="header">{{ name_utils.get_object_name(gong) }}</div>
+              <a class="header" href="{{ url_for('gongs.view', gong_id=gong.id) }}">{{ name_utils.get_object_name(gong) }}</a>
               <div class="meta">
                 {% for tag in gong.tags %}
                   <a href="{{ url_for('tags.view', tag=tag)  }}">{{ tag }}</a>
                 {% endfor %}
               </div>
               <div class="description">
-                Description
+                <div>
+                  {% for blessing in gong.blessings %}
+                    <a href="{{ url_for('gongs.show_by_blessing', blessing=blessing) }}">{{ blessing }}</a>
+                  {% endfor %}
+                </div>
               </div>
             </div>
             <div class="extra content">
@@ -39,7 +43,7 @@
               </span>
               <span>
                 <i class="torii gate icon"></i>
-                x ศาล
+                {{ gong.get_shrines() | length }} ศาล
               </span>
             </div>
           </div>

@@ -25,7 +25,12 @@ BaseGongForm = model_form(
         alternative_names=dict(label="Alternative Name"),
         alternative_names_zh=dict(label="Chinese Alternative Name"),
         alternative_names_en=dict(label="English Alternative Name"),
-        avatar=dict(label="Avatar", label_modifier=lambda gong: gong.name),
+        avatar=dict(
+            label="Avatar",
+            label_modifier=lambda gong: gong.name,
+            allow_blank=True,
+            blank_text="No",
+        ),
         day_of_birth=dict(label="Date of Birth"),
         day_of_death=dict(label="Date of Death"),
         day_of_attainment=dict(label="Date of Attainment"),
