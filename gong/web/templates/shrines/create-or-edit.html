@@ -16,7 +16,11 @@
       </div>
 
       {{ renderer.render_multiple_select(form.presidents) }}
-      {{ renderer.render_calendar(form.opened_date, 'opened_date_calendar') }}
+      <div class="three fields">
+        {{ renderer.render_calendar(form.opened_date, 'opened_date_calendar') }}
+        {{ renderer.render_calendar(form.open_time, 'open_time_calendar') }}
+        {{ renderer.render_calendar(form.close_time, 'close_time_calendar') }}
+      </div>
       {{ renderer.render_field(form.biography) }}
 
       <div class="two fields">
@@ -43,7 +47,18 @@
       ampm: false,
     };
 
+    var time_setting={
+      type: 'time',
+      formatter: {
+        time: 'H:mm',
+        cellTime: 'H:mm'
+      },
+      ampm: false,
+    };
+
     $('#opened_date_calendar').calendar(calendar_setting);
+    $('#open_time_calendar').calendar(time_setting);
+    $('#close_time_calendar').calendar(time_setting);
 
   </script>
 {% endblock %}

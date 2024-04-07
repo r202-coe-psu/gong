@@ -17,7 +17,15 @@ BaseShrineForm = model_form(
         name=dict(label="Name"),
         name_zh=dict(label="Chinese Name"),
         name_en=dict(label="English Name"),
-        opened_date=dict(label="Opened Date", validators=[validators.Optional()]),
+        opened_date=dict(
+            label="Opened Date",
+        ),
+        open_time=dict(
+            label="Open Time",
+        ),
+        close_time=dict(
+            label="Close Time",
+        ),
         biography=dict(label="Biograpy"),
         presidents=dict(label="Presidents"),
         coordinates=dict(label="Coordinates"),

@@ -98,19 +98,37 @@
     </div>
 
     <div class="ui message">
-    {% if shrine.biography %}
+      {% if shrine.biography %}
         <h2 class="ui dividing header"><i class="history icon"></i> ประวัติ</h2>
-        <div>
+        <div style="padding-top: 1rem;">
           {{ shrine.biography }}
         </div>
-    {% endif %}
+      {% endif %}
 
-    {% if shrine.location %}
-      <h2 class="ui dividing header" style="padding-top: 2rem;"><i class="map marker alternate icon"></i> ที่ตั้ง</h2>
-        <div>
+      {% if shrine.location %}
+        <h2 class="ui dividing header" style="padding-top: 2rem;"><i class="map marker alternate icon"></i> ที่ตั้ง</h2>
+        <div style="padding-top: 1rem;">
           {{ shrine.location }}
         </div>
-    {% endif %}
+      {% endif %}
+
+      <h2 class="ui dividing header" style="padding-top: 2rem;"><i class="clock icon"></i> เวลา</h2>
+      <div style="padding-top: 1rem;">
+        {% if shrine.open_time %}
+          <div class="ui label">
+            <i class="hourglass start icon"></i>
+            {{ shrine.open_time }}
+          </div>
+        {% endif %}
+        {% if shrine.close_time %}
+          <div class="ui label">
+            <i class="hourglass end icon"></i>
+            {{ shrine.close_time }}
+          </div>
+        {% endif %}
+
+      </div>
+
     </div>
 
     <div>

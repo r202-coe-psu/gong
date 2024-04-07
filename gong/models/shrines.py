@@ -10,6 +10,9 @@ class Shrine(me.Document):
     name_en = me.StringField(max_length=256)
 
     opened_date = me.DateTimeField()
+    open_time = me.StringField(max_length=256)
+    close_time = me.StringField(max_length=256)
+
     biography = me.StringField()
 
     links = me.ListField(me.StringField())
