@@ -70,7 +70,7 @@ class MainMap(Map):
             gong_name = await self.get_obj_name(gimsin["gong"])
 
             tooltip_detail = f"""
-                <div style="width:300px;">
+                <div style="min-width:300px;">
                    <h3>{ gimsin_name }</h3>
                    <div>
                         { image_html }
