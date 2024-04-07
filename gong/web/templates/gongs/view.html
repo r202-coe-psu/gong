@@ -20,7 +20,7 @@
     <div class="ui segment">
       <a class="ui icon primary button" href="{{ url_for('gongs.index') }}"><i class="ui yin yang icon"></i> Gong</a>
       <a class="ui icon primary button" href="{{ url_for('gongs.create_or_edit', gong_id=gong.id) }}"><i class="edit icon"></i> Edit</a>
-      <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='gong', type_id=gong.id) }}"><i class="image icon"></i> Edit</a>
+      <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='gong', type_id=gong.id) }}"><i class="image icon"></i> Picture</a>
     </div>
   {% endif %}
 

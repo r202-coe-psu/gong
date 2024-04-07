@@ -19,8 +19,8 @@
   {% if current_user.is_authenticated %}
   <div class="ui segment">
     <a class="ui icon primary button" href="{{ url_for('gimsins.index') }}"><i class="ui user tag icon"></i> GimSin</a>
-    <a class="ui icon primary button" href="{{ url_for('gimsins.create_or_edit') }}"><i class="edit icon"></i> Edit</a>
-    <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='gimsin', type_id=gimsin.id) }}"><i class="image icon"></i> Edit</a>
+    <a class="ui icon primary button" href="{{ url_for('gimsins.create_or_edit', gimsin_id=gimsin.id) }}"><i class="edit icon"></i> Edit</a>
+    <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='gimsin', type_id=gimsin.id) }}"><i class="image icon"></i> Picture</a>
   </div>
  {% endif %}
 
