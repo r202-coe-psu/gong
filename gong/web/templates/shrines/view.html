@@ -52,7 +52,7 @@
                 <div class="item">
                   <i class="large yin yang middle aligned icon"></i>
                   <div class="content">
-                    <a class="header" href="{{ url_for('gongs.view', gong_id=gimsin.gong.id) }}">{{ gimsin.gong.name }}>{{ gimsin.gong.name }}</a>
+                    <a class="header" href="{{ url_for('gongs.view', gong_id=gimsin.gong.id) }}">{{ gimsin.gong.name }}</a>
                     <div class="description"></div>
                   </div>
                 </div>
@@ -64,7 +64,7 @@
       </div>
     </div>
 
-    <div>
+    <div style="padding-top: 1rem;">
       <h2 class="ui dividing header"> กิ้มซิ้น </h2>
       <div class="ui centered cards">
         {% for gimsin in shrine.get_gimsins() %}
@@ -84,7 +84,7 @@
                 <div class="item">
                   <i class="large yin yang middle aligned icon"></i>
                   <div class="content">
-                    <a class="header" href="{{ url_for('gongs.view', gong_id=gimsin.gong.id) }}">{{ gimsin.gong.name }}>{{ gimsin.gong.name }}</a>
+                    <a class="header" href="{{ url_for('gongs.view', gong_id=gimsin.gong.id) }}">{{ gimsin.gong.name }}</a>
                     <div class="description"></div>
                   </div>
                 </div>
