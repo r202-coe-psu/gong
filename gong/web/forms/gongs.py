@@ -25,6 +25,7 @@ BaseGongForm = model_form(
         alternative_names=dict(label="Alternative Name"),
         alternative_names_zh=dict(label="Chinese Alternative Name"),
         alternative_names_en=dict(label="English Alternative Name"),
+        religion=dict(label="Religion"),
         avatar=dict(
             label="Avatar",
             label_modifier=lambda gong: gong.name,
@@ -57,3 +58,4 @@ class GongForm(BaseGongForm):
     alternative_names_en = TextListField(
         "English Alternative Names", widget=widgets.TextInput()
     )
+    religions = TextListField("Religions", widget=widgets.TextInput())

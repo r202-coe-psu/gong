@@ -21,6 +21,7 @@ BaseShrineForm = model_form(
         biography=dict(label="Biograpy"),
         presidents=dict(label="Presidents"),
         coordinates=dict(label="Coordinates"),
+        location=dict(label="Location"),
     ),
 )
 

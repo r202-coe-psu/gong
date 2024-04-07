@@ -63,6 +63,18 @@ def show_by_blessing(blessing):
     return render_template("/gongs/index.html", gongs=gongs)
 
 
+@module.route("/religions/<religion>")
+def show_by_religion(religion):
+    gongs = models.Gong.objects(
+        religions=religion,
+        status="active",
+    )
+    if not gongs:
+        return redirect(url_for("gongs.index"))
+
+    return render_template("/gongs/index.html", gongs=gongs)
+
+
 @module.route("/<gong_id>")
 def view(gong_id):
     gong = models.Gong.objects.get(id=gong_id, status="active")

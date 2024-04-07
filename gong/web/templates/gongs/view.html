@@ -19,7 +19,7 @@
   {% if current_user.is_authenticated %}
     <div class="ui segment">
       <a class="ui icon primary button" href="{{ url_for('gongs.index') }}"><i class="ui yin yang icon"></i> Gong</a>
-      <a class="ui icon primary button" href="{{ url_for('gongs.create_or_edit') }}"><i class="edit icon"></i> Edit</a>
+      <a class="ui icon primary button" href="{{ url_for('gongs.create_or_edit', gong_id=gong.id) }}"><i class="edit icon"></i> Edit</a>
       <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='gong', type_id=gong.id) }}"><i class="image icon"></i> Edit</a>
     </div>
   {% endif %}
@@ -64,6 +64,23 @@
         <i class="cn flag"></i> {{ gong.alternative_names_zh | join(', ') }} <br>
         <i class="uk flag"></i> {{ gong.alternative_names_en | join(', ') }} <br>
       </div>
+      {% if gong.religions %}
+        <div>
+          <i class="ui pray icon large"></i>
+          {% for religion in gong.religions %}
+            <a href="{{ url_for('gongs.show_by_religion', religion=religion) }}" class="ui label blue large">{{ religion }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% if gong.blessings %}
+        <div>
+          <i class="ui praying hands icon large"></i>
+          {% for blessing in gong.blessings %}
+            <a href="{{ url_for('gongs.show_by_blessing', blessing=blessing) }}" class="ui label yellow large">{{ blessing }}</a>
+          {% endfor %}
+        </div>
+      {% endif %}
+
       {% if gong.biography %}
         <div class="ui divider"></div>
         <div style="pedding-top:1rem;">

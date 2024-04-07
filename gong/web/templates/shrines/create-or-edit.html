@@ -1,5 +1,8 @@
 {% extends '/base/default-dashboard.html' %}
 {% import '/base/html-renderer.html' as renderer %}
+{% block title %}
+  Create or Edit Shrine
+{% endblock %}
 
 {% block content %}
   <div>
@@ -18,8 +21,9 @@
 
       <div class="two fields">
       {{ renderer.render_field(form.coordinates) }}
-      {{ renderer.render_field(form.links) }}
+      {{ renderer.render_field(form.location) }}
       </div>
+      {{ renderer.render_field(form.links) }}
       <button type="submit" class="ui primary button">Submit</button>
     </form>
   </div>

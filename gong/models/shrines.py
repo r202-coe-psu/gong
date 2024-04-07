@@ -24,6 +24,7 @@ class Shrine(me.Document):
     )
 
     coordinates = me.PointField(auto_index=False)
+    location = me.StringField(max_length=256)
 
     status = me.StringField(default="active")
 

@@ -13,6 +13,7 @@ class Gong(me.Document):
     alternative_names_en = me.ListField(me.StringField(max_length=256))
 
     avatar = me.ReferenceField("Gong")
+    religions = me.ListField(me.StringField(max_length=256))
 
     day_of_birth = me.DateTimeField()
     day_of_death = me.DateTimeField()

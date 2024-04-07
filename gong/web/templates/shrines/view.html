@@ -19,8 +19,8 @@
   {% if current_user.is_authenticated %}
   <div class="ui segment">
     <a class="ui icon primary button" href="{{ url_for('shrines.index') }}"><i class="ui yin yang icon"></i> Gong</a>
-    <a class="ui icon primary button" href="{{ url_for('shrines.create_or_edit') }}"><i class="edit icon"></i> Edit</a>
-    <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='shrine', type_id=shrine.id) }}"><i class="image icon"></i> Edit</a>
+    <a class="ui icon primary button" href="{{ url_for('shrines.create_or_edit', shrine_id=shrine.id) }}"><i class="edit icon"></i> Edit</a>
+    <a class="ui icon primary button" href="{{ url_for('pictures.manage', type_='shrine', type_id=shrine.id) }}"><i class="image icon"></i> Picture</a>
   </div>
   {% endif %}
 
@@ -97,14 +97,21 @@
 
     </div>
 
+    <div class="ui message">
     {% if shrine.biography %}
-      <div>
-        <h2 class="ui dividing header">ประวัติ</h2>
+        <h2 class="ui dividing header"><i class="history icon"></i> ประวัติ</h2>
         <div>
           {{ shrine.biography }}
         </div>
-      </div>
     {% endif %}
+
+    {% if shrine.location %}
+      <h2 class="ui dividing header" style="padding-top: 2rem;"><i class="map marker alternate icon"></i> ที่ตั้ง</h2>
+        <div>
+          {{ shrine.location }}
+        </div>
+    {% endif %}
+    </div>
 
     <div>
       <div class="ui divider"></div>
