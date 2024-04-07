@@ -121,8 +121,18 @@
             <a class="content" href="{{ url_for('shrines.view', shrine_id=shrine.id) }}">
               <div class="header">{{ shrine.name }}</div>
               <div class="meta">
-                <span class="time">-</span>
-                <span class="stay"></span>
+                {% if shrine.location %}
+                  <i class="map marker alternate icon"></i>
+                  <span class="location">{{ shrine.location  }}</span>
+                {% endif %}
+                {% if shrine.open_time %}
+                  <i class="hourglass start icon"></i>
+                  <span class="time">{{ shrine.open_time }}</span>
+                {% endif %}
+                {% if shrine.close_time %}
+                  <i class="hourglass end icon"></i>
+                  <span class="time">{{ shrine.close_time }}</span>
+                {% endif %}
               </div>
               <div class="description">
                 <p></p>

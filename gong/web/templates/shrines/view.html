@@ -109,6 +109,9 @@
         <h2 class="ui dividing header" style="padding-top: 2rem;"><i class="map marker alternate icon"></i> ที่ตั้ง</h2>
         <div style="padding-top: 1rem;">
           {{ shrine.location }}
+          {% if shrine.coordinates.coordinates %}
+            <a href="http://maps.google.com/maps?z=12&t=m&q=loc:{{ shrine.coordinates.coordinates[0] }}+{{ shrine.coordinates.coordinates[1] }}" target="_blank"><i class="map icon"></i></a>
+          {% endif %}
         </div>
       {% endif %}
 
