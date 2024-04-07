@@ -2,6 +2,11 @@ import mongoengine as me
 import datetime
 
 
+class ShrinePresident(me.EmbeddedDocument):
+    order = me.IntField(default=0)
+    gimsin = me.ReferenceField("GimSin")
+
+
 class Shrine(me.Document):
     meta = {"collection": "shrines"}
 
@@ -17,7 +22,7 @@ class Shrine(me.Document):
 
     links = me.ListField(me.StringField())
 
-    presidents = me.ListField(me.ReferenceField("GimSin"))
+    presidents = me.EmbeddedDocumentListField(ShrinePresident, default=[])
 
     creator = me.ReferenceField("User")
 

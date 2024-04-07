@@ -10,7 +10,7 @@ from . import pictures
 from .gongs import Gong
 from .users import User
 from .gimsins import GimSin
-from .shrines import Shrine
+from .shrines import Shrine, ShrinePresident
 from .pictures import BasePicture, GongPicture, GimSinPicture, ShrinePicture
 
 db = MongoEngine()

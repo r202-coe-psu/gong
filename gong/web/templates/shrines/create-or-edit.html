@@ -15,7 +15,13 @@
       {{ renderer.render_field(form.name_en) }}
       </div>
 
-      {{ renderer.render_multiple_select(form.presidents) }}
+      {% for president in form.presidents %}
+        <div class="two fields">
+          {{ renderer.render_field(president.order) }}
+          {{ renderer.render_select(president.gimsin) }}
+        </div>
+      {% endfor %}
+
       <div class="three fields">
         {{ renderer.render_calendar(form.opened_date, 'opened_date_calendar') }}
         {{ renderer.render_calendar(form.open_time, 'open_time_calendar') }}

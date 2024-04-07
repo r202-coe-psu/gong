@@ -26,6 +26,10 @@ def create_or_edit(shrine_id):
         shrine = models.Shrine.objects.get(id=shrine_id)
         form = forms.shrines.ShrineForm(obj=shrine)
 
+        president_query_set = models.GimSin.objects(shrine=shrine)
+        for president in form.presidents:
+            president.gimsin.query_set = president_query_set
+
     if not form.validate_on_submit():
         return render_template("/shrines/create-or-edit.html", form=form)
 
@@ -33,6 +37,7 @@ def create_or_edit(shrine_id):
         shrine = models.Shrine()
 
     form.populate_obj(shrine)
+    shrine.presidents.sort(key=lambda president: president.order)
     shrine.save()
 
     return redirect(url_for("shrines.view", shrine_id=shrine.id))

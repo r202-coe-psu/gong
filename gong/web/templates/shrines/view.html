@@ -35,31 +35,34 @@
       <div class="ui divider"></div>
 
       <div class="ui centered cards">
-        {% for gimsin in shrine.presidents %}
-          <div class="card">
-            <div class="image">
-              {% if gimsin.has_cover_image() %}
-                {% set picture = gimsin.get_cover_image() %}
-                <img src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) }}">
-              {% else %}
-                <div class="ui rectangle test ad" data-text="GimSin Cover"></div>
-              {% endif %}
-            </div>
-
-            <div class="content">
-              <a class="header large" href="{{ url_for('gimsins.view', gimsin_id=gimsin.id) }}">{{ gimsin.name }}</a>
-              <div class="ui relaxed divided list">
-                <div class="item">
-                  <i class="large yin yang middle aligned icon"></i>
-                  <div class="content">
-                    <a class="header" href="{{ url_for('gongs.view', gong_id=gimsin.gong.id) }}">{{ gimsin.gong.name }}</a>
-                    <div class="description"></div>
-                  </div>
-                </div>
+        {% for president in shrine.presidents %}
+          {% if president.gimsin %}
+            {% set gimsin = president.gimsin %}
+            <div class="card">
+              <div class="image">
+                {% if gimsin.has_cover_image() %}
+                  {% set picture = gimsin.get_cover_image() %}
+                  <img src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) }}">
+                {% else %}
+                  <div class="ui rectangle test ad" data-text="GimSin Cover"></div>
+                {% endif %}
               </div>
 
+              <div class="content">
+                <a class="header large" href="{{ url_for('gimsins.view', gimsin_id=gimsin.id) }}">{{ gimsin.name }}</a>
+                <div class="ui relaxed divided list">
+                  <div class="item">
+                    <i class="large yin yang middle aligned icon"></i>
+                    <div class="content">
+                      <a class="header" href="{{ url_for('gongs.view', gong_id=gimsin.gong.id) }}">{{ gimsin.gong.name }}</a>
+                      <div class="description"></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
-          </div>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
