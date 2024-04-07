@@ -31,7 +31,9 @@ Picture: {{ type_obj.name }}
           </div>
           <div class="extra content">
             <span class="right floated">
-              <i class="trash icon"></i>
+              <a href="{{ url_for('pictures.delete', picture_id=picture.id, type_=type_, type_id=type_obj.id) }}">
+                <i class="trash icon"></i>
+              </a>
             </span>
             <span>
               {% if picture.is_cover %}
@@ -42,7 +44,6 @@ Picture: {{ type_obj.name }}
                 </a>
               {% endif %}
 
-              <i class="edit icon"></i>
             </span>
           </div>
         </div>

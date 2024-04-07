@@ -129,3 +129,23 @@ def upload(type_, type_id):
         picture.save()
 
     return redirect(url_for("pictures.manage", type_=type_, type_id=type_id))
+
+
+@module.route(
+    "/<picture_id>/delete/<type_>/<type_id>",
+    methods=["GET"],
+)
+@login_required
+def delete(picture_id, type_, type_id):
+    picture = None
+    if type_ == "gong":
+        picture = models.GongPicture.objects.with_id(picture_id)
+    elif type_ == "shrine":
+        picture = models.ShrinePicture.objects.with_id(picture_id)
+    elif type_ == "gimsin":
+        picture = models.GimSinPicture.objects.with_id(picture_id)
+
+    if picture:
+        picture.delete()
+
+    return redirect(url_for("pictures.manage", type_=type_, type_id=type_id))
