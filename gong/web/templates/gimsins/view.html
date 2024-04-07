@@ -63,7 +63,7 @@
 
     {% if gimsin.biography %}
     <div class="ui message">
-      {{ gimsin.biography }}
+      {{ gimsin.biography | render_markdown | safe }}
     </div>
     {% endif %}
 

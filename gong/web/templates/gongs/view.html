@@ -93,7 +93,7 @@
       {% if gong.biography %}
         <div class="ui divider"></div>
         <div style="pedding-top:1rem;">
-          {{ gong.biography }}
+          {{ gong.biography | render_markdown | safe }}
         </div>
       {% endif %}
     </div>

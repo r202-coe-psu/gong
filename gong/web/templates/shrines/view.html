@@ -101,7 +101,7 @@
       {% if shrine.biography %}
         <h2 class="ui dividing header"><i class="history icon"></i> ประวัติ</h2>
         <div style="padding-top: 1rem;">
-          {{ shrine.biography }}
+          {{ shrine.biography | render_markdown | safe }}
         </div>
       {% endif %}
 
