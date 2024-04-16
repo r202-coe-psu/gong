@@ -79,11 +79,10 @@ class MainMap(Map):
         markers = []
 
         for shrine in shrines:
-            print(shrine)
             image_html = ""
             if shrine["cover_image_url"]:
                 image_html = f"""
-                <img class="ui centered medium image" src="{ shrine['cover_image_url'] }" style="max-height: 120px; overflow: hidden; object-fit: cover;">
+                <img class="ui centered medium image" src="{ shrine['cover_image_url'] }">
                 """
             else:
                 image_html = """
@@ -99,13 +98,14 @@ class MainMap(Map):
                 president_html += f"""
                       <div class="item">
                         <div class="ui tiny image">
-                          <img src="{ president['cover_image_url'] }" style="max-height: 60px; overflow: hidden; object-fit: cover;">
+                          <img src="{ president['cover_image_url'] }" >
                         </div>
                         <div class="middle aligned content">
-                          <i class="ui user tag icon"></i> { president['name'] }
+                          <i class="ui user tag icon"></i> { president['name'] }xxx
                         </div>
                       </div>
                     """
+
             tooltip_detail = f"""
                 <div style="min-width:300px;">
                    <h3>{ shrine_name }</h3>
@@ -121,19 +121,19 @@ class MainMap(Map):
                 """
 
             coordinates = shrine["coordinates"]["coordinates"]
-            red_icon = self.leaflet.divIcon(
-                dict(
-                    html="""<i class="ui map marker alternate icon fitted huge red"
-                    style="position:absolute;left:-0.8rem;top:-2.2rem">
-                    </i>""",
-                    className="dummy",
-                )
-            )
+            # red_icon = self.leaflet.divIcon(
+            #     dict(
+            #         html="""<i class="ui map marker alternate icon fitted huge red"
+            #         style="position:absolute;left:-0.8rem;top:-2.2rem;  border: 1px solid #FFFFFF">
+            #         </i>""",
+            #         className="dummy",
+            #     )
+            # )
 
             shrine_marker = self.leaflet.marker(
                 coordinates,
                 dict(
-                    icon=red_icon,
+                    # icon=red_icon,
                     shrine_id=shrine["id"],
                 ),
             )
@@ -149,6 +149,8 @@ class MainMap(Map):
                     lambda e: self.on_click_shrine(e.sourceTarget.options.shrine_id),
                 )
             )
+            # marker._icon.classList.add("huechange")
+            marker._icon.style.filter = "hue-rotate(140deg)"
 
             markers.append(marker)
             self.shrine_markers[shrine["id"]] = marker
@@ -171,7 +173,7 @@ class MainMap(Map):
             image_html = ""
             if gimsin["cover_image_url"]:
                 image_html = f"""
-                <img class="ui medium image" src="{ gimsin['cover_image_url'] }" style="max-height: 300px; overflow: hidden; object-fit: cover;">
+                <img class="ui medium image" src="{ gimsin['cover_image_url'] }" style="max-height: 300px; overflow: clip; object-fit: cover; object-position: 100% 0;">
                 """
 
             gimsin_name = await self.get_obj_name(gimsin)
@@ -192,19 +194,10 @@ class MainMap(Map):
                 """
 
             coordinates = gimsin["coordinates"]["coordinates"]
-            red_icon = self.leaflet.divIcon(
-                dict(
-                    html="""<i class="ui map marker alternate icon fitted huge red"
-                    style="position:absolute;left:-0.8rem;top:-2.2rem">
-                    </i>""",
-                    className="dummy",
-                )
-            )
 
             gimsin_marker = self.leaflet.marker(
                 coordinates,
                 dict(
-                    icon=red_icon,
                     gimsin_id=gimsin["id"],
                 ),
             )
@@ -220,6 +213,7 @@ class MainMap(Map):
                     lambda e: self.on_click_gimsin(e.sourceTarget.options.gimsin_id),
                 )
             )
+            marker._icon.style.filter = "hue-rotate(140deg)"
 
             markers.append(marker)
             self.gimsin_markers[gimsin["id"]] = marker

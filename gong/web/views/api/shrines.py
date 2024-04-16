@@ -46,11 +46,12 @@ def index():
                             picture_id=president.gimsin.get_cover_image().id,
                             filename=president.gimsin.get_cover_image().file.filename,
                         )
-                        if president.gimsin.has_cover_image
+                        if president.gimsin.has_cover_image()
                         else ""
                     ),
                 )
                 for president in shrine.presidents
+                if president.gimsin
             ],
             coordinates=shrine.coordinates,
             cover_image_url=url,

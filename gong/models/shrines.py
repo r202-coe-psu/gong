@@ -4,7 +4,7 @@ import datetime
 
 class ShrinePresident(me.EmbeddedDocument):
     order = me.IntField(default=0)
-    gimsin = me.ReferenceField("GimSin")
+    gimsin = me.ReferenceField("GimSin", dbref=True)
 
 
 class Shrine(me.Document):
