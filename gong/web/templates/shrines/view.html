@@ -108,16 +108,6 @@
         </div>
       {% endif %}
 
-      {% if shrine.location %}
-        <h2 class="ui dividing header" style="padding-top: 2rem;"><i class="map marker alternate icon"></i> ที่ตั้ง</h2>
-        <div style="padding-top: 1rem;">
-          {{ shrine.location }}
-          {% if shrine.coordinates.coordinates %}
-            <a href="http://maps.google.com/maps?z=12&t=m&q=loc:{{ shrine.coordinates.coordinates[0] }}+{{ shrine.coordinates.coordinates[1] }}" target="_blank"><i class="map icon"></i></a>
-          {% endif %}
-        </div>
-      {% endif %}
-
       <h2 class="ui dividing header" style="padding-top: 2rem;"><i class="clock icon"></i> เวลา</h2>
       <div style="padding-top: 1rem;">
         {% if shrine.open_time %}
@@ -141,5 +131,51 @@
       <div class="ui divider"></div>
       {{ galleries.render_cards(shrine) }}
     </div>
+
+    {% if shrine.location %}
+      <h2 class="ui dividing header" style="padding-top: 2rem;"><i class="map marker alternate icon"></i> ที่ตั้ง</h2>
+      <div style="padding-top: 1rem;" class="ui large text">
+        {{ shrine.location }}
+        {% if shrine.coordinates.coordinates %}
+          <a href="http://maps.google.com/maps?z=12&t=m&q=loc:{{ shrine.coordinates.coordinates[0] }}+{{ shrine.coordinates.coordinates[1] }}" target="_blank"><i class="map icon"></i></a>
+        {% endif %}
+      </div>
+    {% endif %}
+
+
+    <div>
+      <div id="mapid" style="z-index:1; min-height:45rem; height:100%; width:100%;"></div>
+    </div>
+
   </div>
 {% endblock %}
+
+
+
+{% block additional_js %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/leaflet/dist/leaflet.css') }}" />
+  <script src="{{ url_for('static', filename='node_modules/leaflet/dist/leaflet.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/leaflet.smoothwheelzoom.js')}}"></script>
+
+  <script src="{{ url_for('static', filename='node_modules/brython/brython.js') | add_date_url}}"></script>
+  <script src="{{ url_for('static', filename='node_modules/brython/brython_stdlib.js') | add_date_url}}"></script>
+
+
+  <script type="text/javascript" src="{{ url_for('static', filename='brython/maps.brython.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='brython/gongs.brython.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='brython/controllers.brython.js') }}"></script>
+
+
+<script type="text/python">
+  from controllers import MainController
+  map = MainController(
+    "th",
+    "shrine_gimsin",
+    {{ shrine.coordinates.coordinates }},
+    shrine_id="{{ shrine.id }}"
+  )
+  map.start()
+</script>
+
+{% endblock additional_js %}
+

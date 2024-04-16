@@ -15,7 +15,7 @@
             <a class="image" href="{{ url_for('gongs.view', gong_id=gong.id) }}">
               {% if gong.has_cover_image() %}
                 {% set picture = gong.get_cover_image() %}
-                <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) }}">
+                <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) }}" style="max-height: 160px; overflow: hidden; object-fit: cover;">
               {% else %}
                 <div class="ui placeholder">
                   <div class="rectangular image"></div>
@@ -76,7 +76,5 @@
   )
   map.start()
 </script>
-
-
 
 {% endblock additional_js %}

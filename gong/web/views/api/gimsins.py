@@ -17,7 +17,16 @@ module = Blueprint("gimsins", __name__, url_prefix="/gimsins")
 
 @module.route("")
 def index():
-    gimsins = models.GimSin.objects(status="active")
+    args = request.args
+    gimsins = []
+    if args.get("shrine_id"):
+        shrine = models.Shrine.objects(
+            id=args.get("shrine_id"), status="active"
+        ).first()
+        gimsins = models.GimSin.objects(status="active", shrine=shrine)
+    else:
+        gimsins = models.GimSin.objects(status="active")
+
     datas = []
     for gimsin in gimsins:
         cover_image = gimsin.get_cover_image()
