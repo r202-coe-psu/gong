@@ -101,7 +101,7 @@ class MainMap(Map):
                           <img src="{ president['cover_image_url'] }" >
                         </div>
                         <div class="middle aligned content">
-                          <i class="ui user tag icon"></i> { president['name'] }xxx
+                          <i class="ui user tag icon"></i> { president['name'] }
                         </div>
                       </div>
                     """
