@@ -5,12 +5,12 @@
 
   <div class="ui segment two columns grid">
     <div class="column">
-      <div id="mapid" style="z-index:1; min-height:45rem; height:100%; width:100%;"></div>
+      <div id="mapid" style="z-index:1; min-height:45rem; height:100vh; width:100%;"></div>
     </div>
     <div class="column">
       <h1>Gong</h1>
       <div class="ui link cards">
-        {% for gong in gongs %}
+        {% for shrine_numbers, gong in gongs_shrines %}
           <div class="card">
             <a class="image" href="{{ url_for('gongs.view', gong_id=gong.id) }}">
               {% if gong.has_cover_image() %}
@@ -43,7 +43,7 @@
               </span>
               <span>
                 <i class="torii gate icon"></i>
-                {{ gong.get_shrines() | length }} ศาล
+                {{ shrine_numbers }} ศาล
               </span>
             </div>
           </div>

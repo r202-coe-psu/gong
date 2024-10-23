@@ -8,7 +8,8 @@ then
 	kill -KILL $BRYTHON_ID
 fi
 
-$(pwd)/scripts/auto-build-brython &
+poetry run python $(pwd)/scripts/auto-build-brython &
 
-GONG_SETTINGS=$(pwd)/.env DEBUG=1 gong-web -H 0.0.0.0 -d
+
+GONG_SETTINGS=$(pwd)/.env DEBUG=1 poetry run gong-web -H 0.0.0.0 -d
 

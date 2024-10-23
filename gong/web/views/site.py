@@ -12,4 +12,11 @@ module = Blueprint("site", __name__)
 def index():
     now = datetime.datetime.now()
     gongs = models.Gong.objects(status="active")
-    return render_template("/site/index.html", gongs=gongs)
+    gongs_shrines = []
+    for gong in gongs:
+        gongs_shrines.append((len(gong.get_shrines()), gong))
+
+    gongs_shrines.sort(
+        key=lambda gong_shrine: (gong_shrine[0], gong_shrine[1].name), reverse=True
+    )
+    return render_template("/site/index.html", gongs_shrines=gongs_shrines)

@@ -17,5 +17,5 @@ module = Blueprint("gongs", __name__, url_prefix="/gongs")
 
 @module.route("")
 def index():
-    gongs = models.Gong.objects()
+    gongs = models.Gong.objects(status="active")
     return jsonify(gongs)
