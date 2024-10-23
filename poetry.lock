@@ -423,24 +423,24 @@ Flask = ">=1.0.4"
 Werkzeug = ">=1.0.1"
 
 [[package]]
-name = "flask-me"
-version = "1.0.2"
-description = "Flask extension that provides integration with MongoEngine and WTF model forms. This project is a forked of flask-mongoengine for compatable of new flask version"
+name = "flask-mongoengine-3"
+version = "1.0.9"
+description = "Flask extension that provides integration with MongoEngine and WTF model forms."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "flask-me-1.0.2.tar.gz", hash = "sha256:a4dd67d3b098d9edee1d604f5ba3ec7ee89353061edbd1efe26af4c422c4296a"},
-    {file = "flask_me-1.0.2-py3-none-any.whl", hash = "sha256:d1f06a3754e545ae837c1f5fd9d3662a05816193d89a29a0f4995dace670233c"},
+    {file = "flask-mongoengine-3-1.0.9.tar.gz", hash = "sha256:d05c590c1e8f3f4d179d1c09be7c5cbf0c2ba017aa893c460751d27b674bc910"},
+    {file = "flask_mongoengine_3-1.0.9-py3-none-any.whl", hash = "sha256:379c8a7b4e3593cff7ac86714f373c2bee1f2d2cd4258d8846347b4d0f437c12"},
 ]
 
 [package.dependencies]
-Flask = ">=2.0"
+Flask = ">=1.1.4"
 mongoengine = ">=0.21"
 
 [package.extras]
-dev = ["Pillow (>=7.0.0)", "black (==22.6.0)", "blinker", "nox", "pre-commit", "pytest", "pytest-cov", "pytest-mock"]
+dev = ["Pillow (>=7.0.0)", "black (==22.6.0)", "blinker", "mongomock-5 (==5.0.1)", "nox", "pre-commit", "pytest", "pytest-cov", "pytest-mock"]
 legacy = ["MarkupSafe (==2.0.1)"]
-legacy-dev = ["Pillow (>=7.0.0)", "blinker", "pytest", "pytest-cov", "pytest-mock"]
+legacy-dev = ["Pillow (>=7.0.0)", "blinker", "mongomock", "pytest", "pytest-cov", "pytest-mock"]
 toolbar = ["Flask-DebugToolbar (>=0.11.0)"]
 wtf = ["Flask-WTF (>=0.14.3)", "WTForms[email] (>=3.0.0)"]
 
@@ -985,4 +985,4 @@ email = ["email-validator"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "3bed44424d5aa71635829bb196c0ec6e3d715557e093705f3a1a6045e55540ab"
+content-hash = "3cc2cf07185644382e72d76750b4685f76a97c1e8daee5354bd1acf6f002127d"

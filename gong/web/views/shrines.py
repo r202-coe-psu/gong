@@ -28,7 +28,10 @@ def create_or_edit(shrine_id):
 
         president_query_set = models.GimSin.objects(shrine=shrine)
         for president in form.presidents:
-            president.gimsin.query_set = president_query_set
+            president.gimsin.queryset = president_query_set
+    else:
+        for president in form.presidents:
+            president.gimsin.queryset = None
 
     if not form.validate_on_submit():
         return render_template("/shrines/create-or-edit.html", form=form)
