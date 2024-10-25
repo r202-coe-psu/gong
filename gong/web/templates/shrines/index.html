@@ -49,7 +49,7 @@
               {% endfor %}
             </div>
             <div class="description">
-              {{ shrine.biography }}
+              {{ shrine.biography | render_markdown | safe  }}
             </div>
           </div>
           {% if current_user.is_authenticated %}

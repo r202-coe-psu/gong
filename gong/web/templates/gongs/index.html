@@ -57,7 +57,7 @@
                 {% endfor %}
               </div>
               <div>
-                {{ gong.biography }}
+                {{ gong.biography | render_markdown | safe  }}
               </div>
             </div>
           </div>
