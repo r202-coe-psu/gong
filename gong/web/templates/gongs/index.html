@@ -30,7 +30,7 @@
           <div class="image">
             {% if gong.has_cover_image() %}
               {% set picture = gong.get_cover_image() %}
-              <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) }}">
+              <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) | add_date_url }}">
             {% else %}
               <div class="ui placeholder">
                 <div class="rectangular image"></div>

@@ -32,7 +32,7 @@
       {% if gimsin.has_cover_image() %}
         <div class="ui center aligned pedded segment">
           {% set picture = gimsin.get_cover_image() %}
-          <img class="ui medium centered image" src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) }}">
+          <img class="ui medium centered image" src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) | add_date_url }}">
         </div>
       {% endif %}
 

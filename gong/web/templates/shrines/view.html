@@ -42,7 +42,7 @@
               <div class="image">
                 {% if gimsin.has_cover_image() %}
                   {% set picture = gimsin.get_cover_image() %}
-                  <img src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) }}">
+                  <img src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) | add_date_url }}">
                 {% else %}
                   <div class="ui rectangle test ad" data-text="GimSin Cover"></div>
                 {% endif %}
@@ -75,7 +75,7 @@
             <div class="image">
               {% if gimsin.has_cover_image() %}
                 {% set picture = gimsin.get_cover_image() %}
-                <img src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) }}">
+                <img src="{{ url_for('pictures.download', picture_id=picture.id, filename=picture.file.filename) | add_date_url }}">
               {% else %}
 
               {% endif %}

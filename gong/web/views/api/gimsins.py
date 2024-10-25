@@ -10,6 +10,7 @@ from flask import (
 from flask_login import login_required, current_user
 
 from gong import models
+from .. import add_date_url
 
 
 module = Blueprint("gimsins", __name__, url_prefix="/gimsins")
@@ -32,10 +33,12 @@ def index():
         cover_image = gimsin.get_cover_image()
         url = None
         if cover_image:
-            url = url_for(
-                "pictures.download",
-                picture_id=cover_image.id,
-                filename=cover_image.file.filename,
+            url = add_date_url(
+                url_for(
+                    "pictures.download",
+                    picture_id=cover_image.id,
+                    filename=cover_image.file.filename,
+                )
             )
 
         data = dict(

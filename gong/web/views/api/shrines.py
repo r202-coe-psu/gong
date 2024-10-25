@@ -11,6 +11,7 @@ from flask_login import login_required, current_user
 
 from gong import models
 
+from .. import add_date_url
 
 module = Blueprint("shrines", __name__, url_prefix="/shrines")
 
@@ -23,10 +24,12 @@ def index():
         cover_image = shrine.get_cover_image()
         url = None
         if cover_image:
-            url = url_for(
-                "pictures.download",
-                picture_id=cover_image.id,
-                filename=cover_image.file.filename,
+            url = add_date_url(
+                url_for(
+                    "pictures.download",
+                    picture_id=cover_image.id,
+                    filename=cover_image.file.filename,
+                )
             )
 
         data = dict(
@@ -41,10 +44,12 @@ def index():
                     name_zh=president.gimsin.name_zh,
                     name_en=president.gimsin.name_en,
                     cover_image_url=(
-                        url_for(
-                            "pictures.download",
-                            picture_id=president.gimsin.get_cover_image().id,
-                            filename=president.gimsin.get_cover_image().file.filename,
+                        add_date_url(
+                            url_for(
+                                "pictures.download",
+                                picture_id=president.gimsin.get_cover_image().id,
+                                filename=president.gimsin.get_cover_image().file.filename,
+                            )
                         )
                         if president.gimsin.has_cover_image()
                         else ""

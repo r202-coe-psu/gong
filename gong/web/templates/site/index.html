@@ -15,7 +15,7 @@
             <a class="image" href="{{ url_for('gongs.view', gong_id=gong.id) }}">
               {% if gong.has_cover_image() %}
                 {% set picture = gong.get_cover_image() %}
-                <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) }}" style="max-height: 300px; overflow-y: clip; object-fit: cover; object-position: 100% 0;">
+                <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) | add_date_url }}" style="max-height: 300px; overflow-y: clip; object-fit: cover; object-position: 100% 0;">
               {% else %}
                 <div class="ui placeholder">
                   <div class="rectangular image"></div>
