@@ -1,6 +1,45 @@
 {% extends "/base/default-page.html" %}
 {% import '/base/name-utils.html' as name_utils %}
 
+{% macro render_gong_cards(shrine_numbers, gong) %}
+  <div class="card">
+    <a class="image" href="{{ url_for('gongs.view', gong_id=gong.id) }}">
+      {% if gong.has_cover_image() %}
+        {% set picture = gong.get_cover_image() %}
+        <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) | add_date_url }}" style="max-height: 300px; overflow-y: clip; object-fit: cover; object-position: 100% 0;">
+      {% else %}
+        <div class="ui placeholder">
+          <div class="rectangular image"></div>
+        </div>
+      {% endif %}
+    </a>
+    <div class="content">
+      <a class="header" href="{{ url_for('gongs.view', gong_id=gong.id) }}">{{ name_utils.get_object_name(gong) }}</a>
+      <div class="meta">
+        {% for tag in gong.tags %}
+          <a href="{{ url_for('tags.view', tag=tag)  }}">{{ tag }}</a>
+        {% endfor %}
+      </div>
+      <div class="description">
+        <div>
+          {% for blessing in gong.blessings %}
+            <a href="{{ url_for('gongs.show_by_blessing', blessing=blessing) }}">{{ blessing }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="extra content">
+      <span class="right floated">
+        
+      </span>
+      <span>
+        <i class="torii gate icon"></i>
+        {{ shrine_numbers }} ศาล
+      </span>
+    </div>
+  </div>
+{% endmacro %}
+
 {% block content %}
 
   <div class="ui segment grid">
@@ -8,48 +47,23 @@
       <div class="twelve wide column">
         <h1>Gong</h1>
         <div class="ui link centered cards">
-          {% for shrine_numbers, gong in gongs_shrines %}
-            <div class="card">
-              <a class="image" href="{{ url_for('gongs.view', gong_id=gong.id) }}">
-                {% if gong.has_cover_image() %}
-                  {% set picture = gong.get_cover_image() %}
-                  <img src="{{ url_for("pictures.download", picture_id=picture.id, filename=picture.file.filename) | add_date_url }}" style="max-height: 300px; overflow-y: clip; object-fit: cover; object-position: 100% 0;">
-                {% else %}
-                  <div class="ui placeholder">
-                    <div class="rectangular image"></div>
-                  </div>
-                {% endif %}
-              </a>
-              <div class="content">
-                <a class="header" href="{{ url_for('gongs.view', gong_id=gong.id) }}">{{ name_utils.get_object_name(gong) }}</a>
-                <div class="meta">
-                  {% for tag in gong.tags %}
-                    <a href="{{ url_for('tags.view', tag=tag)  }}">{{ tag }}</a>
-                  {% endfor %}
-                </div>
-                <div class="description">
-                  <div>
-                    {% for blessing in gong.blessings %}
-                      <a href="{{ url_for('gongs.show_by_blessing', blessing=blessing) }}">{{ blessing }}</a>
-                    {% endfor %}
-                  </div>
-                </div>
-              </div>
-              <div class="extra content">
-                <span class="right floated">
-                  
-                </span>
-                <span>
-                  <i class="torii gate icon"></i>
-                  {{ shrine_numbers }} ศาล
-                </span>
-              </div>
-            </div>
+          {% for shrine_numbers, gong in gongs_shrines[:8] %}
+            {{ render_gong_cards(shrine_numbers, gong) }}
           {% endfor %}
         </div>
       </div>
       <div class="four wide column">
         <div id="mapid" style="z-index:1; min-height:45rem; height:100vh; width:100%;"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="sixteen wide column">
+        <div class="ui link centered cards">
+          {% for shrine_numbers, gong in gongs_shrines[8:] %}
+            {{ render_gong_cards(shrine_numbers, gong) }}
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>
