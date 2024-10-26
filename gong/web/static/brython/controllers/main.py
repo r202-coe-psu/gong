@@ -10,7 +10,7 @@ from maps import MainMap
 
 
 class MainController:
-    def __init__(self, lang_code="th", type_="shrine", center=[10, 100], **args):
+    def __init__(self, lang_code="th", type_="shrine", center=[11, 102], **args):
         self.lang_code = lang_code
 
         self.get_shrines_url = f"/api/shrines"
@@ -20,7 +20,7 @@ class MainController:
         self.type_ = type_
         self.map = None
 
-        self.zoom = 5
+        self.zoom = 6
         self.min_zoom = 0
         self.center = center
         self.args = args
